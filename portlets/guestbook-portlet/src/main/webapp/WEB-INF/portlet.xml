@@ -7,15 +7,16 @@
 	<portlet>
 		<portlet-name>guestbook-portlet</portlet-name>
 		<display-name>guestbook-portlet</display-name>
-		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<portlet-class>com.liferay.docs.guestbook.portlet.GuestbookPortlet</portlet-class>
 		<init-param>
 			<name>view-template</name>
-			<value>/view.jsp</value>
+			<value>/html/guestbook/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
 		</supports>
+		<resource-bundle>content.Language</resource-bundle>
 		<portlet-info>
 			<title>guestbook-portlet</title>
 			<short-title>guestbook-portlet</short-title>
