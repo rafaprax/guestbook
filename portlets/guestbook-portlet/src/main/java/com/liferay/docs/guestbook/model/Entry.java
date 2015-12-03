@@ -1,40 +1,20 @@
-
 package com.liferay.docs.guestbook.model;
 
-public class Entry {
+import com.liferay.portal.model.PersistedModel;
 
-	private String name;
-	private String message;
-
-	public Entry() {
-
-		this.name = null;
-		this.message = null;
-	}
-
-	public Entry(String name, String message) {
-
-		setName(name);
-		setMessage(message);
-	}
-
-	public String getName() {
-
-		return name;
-	}
-
-	public void setName(String name) {
-
-		this.name = name;
-	}
-
-	public String getMessage() {
-
-		return message;
-	}
-
-	public void setMessage(String message) {
-
-		this.message = message;
-	}
+/**
+ * The extended model interface for the Entry service. Represents a row in the &quot;GB_Entry&quot; database table, with each column mapped to a property of this class.
+ *
+ * @author Diogo Peixoto
+ * @see EntryModel
+ * @see com.liferay.docs.guestbook.model.impl.EntryImpl
+ * @see com.liferay.docs.guestbook.model.impl.EntryModelImpl
+ * @generated
+ */
+public interface Entry extends EntryModel, PersistedModel {
+    /*
+     * NOTE FOR DEVELOPERS:
+     *
+     * Never modify this interface directly. Add methods to {@link com.liferay.docs.guestbook.model.impl.EntryImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+     */
 }
