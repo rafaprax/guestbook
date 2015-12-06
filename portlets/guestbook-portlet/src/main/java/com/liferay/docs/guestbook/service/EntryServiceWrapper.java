@@ -44,6 +44,29 @@ public class EntryServiceWrapper implements EntryService,
         return _entryService.invokeMethod(name, parameterTypes, arguments);
     }
 
+    @Override
+    public com.liferay.docs.guestbook.model.Entry add(
+        com.liferay.docs.guestbook.model.Entry entry,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _entryService.add(entry, serviceContext);
+    }
+
+    @Override
+    public int countByGroupIdGuestbookId(long groupId, long guestbookId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _entryService.countByGroupIdGuestbookId(groupId, guestbookId);
+    }
+
+    @Override
+    public java.util.List<com.liferay.docs.guestbook.model.Entry> findByGroupIdGuestbookId(
+        long groupId, long guestbookId, int start, int end)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _entryService.findByGroupIdGuestbookId(groupId, guestbookId,
+            start, end);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

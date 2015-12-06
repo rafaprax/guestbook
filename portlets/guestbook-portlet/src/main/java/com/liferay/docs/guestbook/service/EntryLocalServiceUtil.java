@@ -330,6 +330,11 @@ public class EntryLocalServiceUtil {
         return getService().add(entry, serviceContext);
     }
 
+    public static int countByGroupIdGuestbookId(long groupId, long guestbookId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().countByGroupIdGuestbookId(groupId, guestbookId);
+    }
+
     public static java.util.List<com.liferay.docs.guestbook.model.Entry> findByGroupIdGuestbookId(
         long groupId, long guestbookId)
         throws com.liferay.portal.kernel.exception.SystemException {

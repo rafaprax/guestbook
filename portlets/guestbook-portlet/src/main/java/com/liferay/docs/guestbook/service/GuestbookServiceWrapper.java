@@ -44,6 +44,29 @@ public class GuestbookServiceWrapper implements GuestbookService,
         return _guestbookService.invokeMethod(name, parameterTypes, arguments);
     }
 
+    @Override
+    public com.liferay.docs.guestbook.model.Guestbook add(
+        com.liferay.docs.guestbook.model.Guestbook guestbook,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _guestbookService.add(guestbook, serviceContext);
+    }
+
+    @Override
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
+        long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _guestbookService.findByGroupId(groupId);
+    }
+
+    @Override
+    public com.liferay.docs.guestbook.model.Guestbook findByPrimaryKey(
+        long guestbookId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _guestbookService.findByPrimaryKey(guestbookId);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

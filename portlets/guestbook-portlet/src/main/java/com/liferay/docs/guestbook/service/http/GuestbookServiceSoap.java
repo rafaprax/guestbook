@@ -1,5 +1,12 @@
 package com.liferay.docs.guestbook.service.http;
 
+import com.liferay.docs.guestbook.service.GuestbookServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link com.liferay.docs.guestbook.service.GuestbookServiceUtil} service utility. The
@@ -41,4 +48,48 @@ package com.liferay.docs.guestbook.service.http;
  * @generated
  */
 public class GuestbookServiceSoap {
+    private static Log _log = LogFactoryUtil.getLog(GuestbookServiceSoap.class);
+
+    public static com.liferay.docs.guestbook.model.GuestbookSoap add(
+        com.liferay.docs.guestbook.model.GuestbookSoap guestbook,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws RemoteException {
+        try {
+            com.liferay.docs.guestbook.model.Guestbook returnValue = GuestbookServiceUtil.add(com.liferay.docs.guestbook.model.impl.GuestbookModelImpl.toModel(
+                        guestbook), serviceContext);
+
+            return com.liferay.docs.guestbook.model.GuestbookSoap.toSoapModel(returnValue);
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static com.liferay.docs.guestbook.model.GuestbookSoap[] findByGroupId(
+        long groupId) throws RemoteException {
+        try {
+            java.util.List<com.liferay.docs.guestbook.model.Guestbook> returnValue =
+                GuestbookServiceUtil.findByGroupId(groupId);
+
+            return com.liferay.docs.guestbook.model.GuestbookSoap.toSoapModels(returnValue);
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static com.liferay.docs.guestbook.model.GuestbookSoap findByPrimaryKey(
+        long guestbookId) throws RemoteException {
+        try {
+            com.liferay.docs.guestbook.model.Guestbook returnValue = GuestbookServiceUtil.findByPrimaryKey(guestbookId);
+
+            return com.liferay.docs.guestbook.model.GuestbookSoap.toSoapModel(returnValue);
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

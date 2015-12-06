@@ -50,4 +50,17 @@ public interface EntryService extends BaseService, InvokableService {
     public java.lang.Object invokeMethod(java.lang.String name,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
+
+    public com.liferay.docs.guestbook.model.Entry add(
+        com.liferay.docs.guestbook.model.Entry entry,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public int countByGroupIdGuestbookId(long groupId, long guestbookId)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    public java.util.List<com.liferay.docs.guestbook.model.Entry> findByGroupIdGuestbookId(
+        long groupId, long guestbookId, int start, int end)
+        throws com.liferay.portal.kernel.exception.SystemException;
 }

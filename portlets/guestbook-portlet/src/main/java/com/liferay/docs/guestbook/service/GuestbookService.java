@@ -50,4 +50,18 @@ public interface GuestbookService extends BaseService, InvokableService {
     public java.lang.Object invokeMethod(java.lang.String name,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
+
+    public com.liferay.docs.guestbook.model.Guestbook add(
+        com.liferay.docs.guestbook.model.Guestbook guestbook,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
+        long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    public com.liferay.docs.guestbook.model.Guestbook findByPrimaryKey(
+        long guestbookId)
+        throws com.liferay.portal.kernel.exception.SystemException;
 }

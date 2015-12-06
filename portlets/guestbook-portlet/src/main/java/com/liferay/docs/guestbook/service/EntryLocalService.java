@@ -299,6 +299,9 @@ public interface EntryLocalService extends BaseLocalService,
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
+    public int countByGroupIdGuestbookId(long groupId, long guestbookId)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
     public java.util.List<com.liferay.docs.guestbook.model.Entry> findByGroupIdGuestbookId(
         long groupId, long guestbookId)
         throws com.liferay.portal.kernel.exception.SystemException;

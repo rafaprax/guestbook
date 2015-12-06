@@ -51,6 +51,26 @@ public class GuestbookServiceUtil {
         return getService().invokeMethod(name, parameterTypes, arguments);
     }
 
+    public static com.liferay.docs.guestbook.model.Guestbook add(
+        com.liferay.docs.guestbook.model.Guestbook guestbook,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().add(guestbook, serviceContext);
+    }
+
+    public static java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
+        long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().findByGroupId(groupId);
+    }
+
+    public static com.liferay.docs.guestbook.model.Guestbook findByPrimaryKey(
+        long guestbookId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().findByPrimaryKey(guestbookId);
+    }
+
     public static void clearService() {
         _service = null;
     }
