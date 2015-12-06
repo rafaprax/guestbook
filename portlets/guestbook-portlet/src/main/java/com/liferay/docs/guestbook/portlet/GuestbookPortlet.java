@@ -4,7 +4,9 @@ package com.liferay.docs.guestbook.portlet;
 import com.liferay.docs.guestbook.model.Entry;
 import com.liferay.docs.guestbook.model.Guestbook;
 import com.liferay.docs.guestbook.service.EntryLocalServiceUtil;
+import com.liferay.docs.guestbook.service.EntryServiceUtil;
 import com.liferay.docs.guestbook.service.GuestbookLocalServiceUtil;
+import com.liferay.docs.guestbook.service.GuestbookServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -38,13 +40,14 @@ public class GuestbookPortlet extends MVCPortlet {
 
 			long guestbookId =
 				ParamUtil.getLong(
-					renderRequest, ParamKeys.ENTRY_PARAM_GUESTBOOK_ID);
+					renderRequest,
+					RequestParameterKeys.GUESTBOOK_PARAM_ID);
 
 			List<Guestbook> guestbooks =
-				GuestbookLocalServiceUtil.findByGroupId(serviceContext.getScopeGroupId());
+				GuestbookServiceUtil.findByGroupId(serviceContext.getScopeGroupId());
 
 			if (guestbooks.size() == 0) {
-				Guestbook guestbook = generateDefaultGuestbook();
+				Guestbook guestbook = generateDefaultGuestbook(serviceContext);
 				guestbookId = guestbook.getGuestbookId();
 			}
 
@@ -53,7 +56,7 @@ public class GuestbookPortlet extends MVCPortlet {
 			}
 
 			renderRequest.setAttribute(
-				ParamKeys.ENTRY_PARAM_GUESTBOOK_ID, guestbookId);
+				RequestParameterKeys.GUESTBOOK_PARAM_ID, guestbookId);
 
 		}
 		catch (Exception e) {
@@ -72,12 +75,12 @@ public class GuestbookPortlet extends MVCPortlet {
 		try {
 			Entry entry = getEntryFromRequest(request);
 
-			EntryLocalServiceUtil.add(entry, serviceContext);
+			EntryServiceUtil.add(entry, serviceContext);
 
 			SessionMessages.add(request, MessageKeys.ENTRY_ADDED);
 
 			response.setRenderParameter(
-				ParamKeys.ENTRY_PARAM_GUESTBOOK_ID,
+				RequestParameterKeys.ENTRY_PARAM_GUESTBOOK_ID,
 				Long.toString(entry.getGuestbookId()));
 
 		}
@@ -99,7 +102,7 @@ public class GuestbookPortlet extends MVCPortlet {
 
 		try {
 			Guestbook guestbook = getGuestbookFromRequest(request);
-			GuestbookLocalServiceUtil.add(guestbook, serviceContext);
+			GuestbookServiceUtil.add(guestbook, serviceContext);
 
 			SessionMessages.add(request, MessageKeys.GUESTBOOK_ADDED);
 
@@ -112,28 +115,31 @@ public class GuestbookPortlet extends MVCPortlet {
 		}
 	}
 
-	private Guestbook generateDefaultGuestbook() {
+	private Guestbook generateDefaultGuestbook(ServiceContext serviceContext)
+		throws PortalException, SystemException {
 
 		Guestbook guestbook = GuestbookLocalServiceUtil.createGuestbook(0);
 		guestbook.setName("Main");
 
-		return guestbook;
+		return GuestbookServiceUtil.add(guestbook, serviceContext);
 	}
 
 	private Entry getEntryFromRequest(ActionRequest request) {
 
 		Entry entry = EntryLocalServiceUtil.createEntry(0);
 
-		String userName =
-			ParamUtil.getString(request, ParamKeys.ENTRY_PARAM_NAME);
+		String name =
+			ParamUtil.getString(request, RequestParameterKeys.ENTRY_PARAM_NAME);
 		String email =
-			ParamUtil.getString(request, ParamKeys.ENTRY_PARAM_EMAIL);
+			ParamUtil.getString(request, RequestParameterKeys.ENTRY_PARAM_EMAIL);
 		String message =
-			ParamUtil.getString(request, ParamKeys.ENTRY_PARAM_MESSAGE);
+			ParamUtil.getString(
+				request, RequestParameterKeys.ENTRY_PARAM_MESSAGE);
 		long guestbookId =
-			ParamUtil.getLong(request, ParamKeys.ENTRY_PARAM_GUESTBOOK_ID);
+			ParamUtil.getLong(
+				request, RequestParameterKeys.ENTRY_PARAM_GUESTBOOK_ID);
 
-		entry.setUserName(userName);
+		entry.setName(name);
 		entry.setEmail(email);
 		entry.setMessage(message);
 		entry.setGuestbookId(guestbookId);
@@ -141,12 +147,23 @@ public class GuestbookPortlet extends MVCPortlet {
 		return entry;
 	}
 
-	private Guestbook getGuestbookFromRequest(ActionRequest request) {
+	private Guestbook getGuestbookFromRequest(ActionRequest request)
+		throws SystemException {
 
-		Guestbook guestbook = GuestbookLocalServiceUtil.createGuestbook(0);
+		long guestbookId =
+			ParamUtil.getLong(request, RequestParameterKeys.GUESTBOOK_PARAM_ID);
+
+		Guestbook guestbook;
+		if (guestbookId > 0) {
+			guestbook = GuestbookServiceUtil.findByPrimaryKey(guestbookId);
+		}
+		else {
+			guestbook = GuestbookLocalServiceUtil.createGuestbook(0);
+		}
 
 		String name =
-			ParamUtil.getString(request, ParamKeys.GUESTBOOK_PARAM_NAME);
+			ParamUtil.getString(
+				request, RequestParameterKeys.GUESTBOOK_PARAM_NAME);
 		guestbook.setName(name);
 
 		return guestbook;
