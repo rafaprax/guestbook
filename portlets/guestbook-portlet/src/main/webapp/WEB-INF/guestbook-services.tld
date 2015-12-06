@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	version="2.1">
+
+	<display-name>SIGEX Date Services Functions</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>guestbook</short-name>
+	<uri>http://www.diogopeixoto.com/guestbook-services</uri>
+
+	<!-- Entry -->
+	<function>
+		<name>countEntryByGuestbookId</name>
+		<function-class>com.liferay.docs.guestbook.service.EntryServiceUtil</function-class>
+		<function-signature>int countByGroupIdGuestbookId(long,long)</function-signature>
+	</function>
+	<function>
+		<name>findEntryByGuestbookId</name>
+		<function-class>com.liferay.docs.guestbook.service.EntryServiceUtil</function-class>
+		<function-signature>java.util.List findByGroupIdGuestbookId(long,long,int,int)</function-signature>
+	</function>
+	
+	<!-- Guestbook -->
+	<function>
+		<name>findGuestbookByGroupId</name>
+		<function-class>com.liferay.docs.guestbook.service.GuestbookServiceUtil</function-class>
+		<function-signature>java.util.List findByGroupId(long)</function-signature>
+	</function>
+</taglib>
