@@ -46,6 +46,12 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		return super.addEntry(entry);
 	}
 
+	public int countByGroupIdGuestbookId(long groupId, long guestbookId)
+		throws SystemException {
+
+		return entryPersistence.countByG_G(groupId, guestbookId);
+	}
+
 	public List<Entry> findByGroupIdGuestbookId(long groupId, long guestbookId)
 		throws SystemException {
 
