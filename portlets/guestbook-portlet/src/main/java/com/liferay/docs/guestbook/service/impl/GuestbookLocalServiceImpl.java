@@ -35,12 +35,23 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 	 * access the guestbook local service.
 	 */
 
-	public Guestbook add(
-		Guestbook guestbook, ServiceContext serviceContext)
+	public Guestbook add(Guestbook guestbook, ServiceContext serviceContext)
 		throws SystemException, PortalException {
+
+		boolean addResource = false;
+		if (guestbook.getGuestbookId() <= 0) {
+			addResource = true;
+		}
 
 		setAttributes(guestbook, serviceContext);
 		validate(guestbook);
+
+		if (addResource) {
+			resourceLocalService.addResources(
+				guestbook.getCompanyId(), guestbook.getGroupId(),
+				guestbook.getUserId(), Guestbook.class.getName(),
+				guestbook.getGuestbookId(), false, true, true);
+		}
 
 		return super.addGuestbook(guestbook);
 	}

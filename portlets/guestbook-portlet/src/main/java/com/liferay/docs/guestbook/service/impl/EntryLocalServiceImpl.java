@@ -40,8 +40,19 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 	public Entry add(Entry entry, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
+		boolean addResource = false;
+		if (entry.getEntryId() <= 0) {
+			addResource = true;
+		}
+
 		setAttributes(entry, serviceContext);
 		validate(entry);
+
+		if (addResource) {
+			resourceLocalService.addResources(
+				entry.getCompanyId(), entry.getGroupId(), entry.getUserId(),
+				Entry.class.getName(), entry.getEntryId(), false, true, true);
+		}
 
 		return super.addEntry(entry);
 	}
