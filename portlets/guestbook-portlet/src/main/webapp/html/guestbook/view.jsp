@@ -1,25 +1,27 @@
 <%@include file="/html/init.jsp"%>
 
 <c:set var="guestbookId" value="${guestbookId}" scope="request" />
+<c:set var="guestbookSelected" value="${guestbook:findGuestbookByPrimaryKey(guestbookId)}"/>
 
 <aui:nav cssClass="nav-tabs">
 
 	<c:forEach items="${guestbook:findGuestbookByGroupId(scopeGroupId)}" var="guestbook">
-	
-		<portlet:renderURL var="viewPageURL">
-			<portlet:param name="mvcPath" value="/html/guestbook/view.jsp" />
-			<portlet:param name="guestbookId" value="${guestbook.guestbookId}" />
-		</portlet:renderURL>
-		
-		<c:choose>
-			<c:when test="${guestbook.guestbookId == guestbookId}">
-				<aui:nav-item cssClass="active" href="${viewPageURL}" label="${guestbook.name}" />
-			</c:when>
+		<c:if test="${permissionChecker:canPerfomActionGuestbook(permissionChecker,guestbook,'VIEW')}">
+			<portlet:renderURL var="viewPageURL">
+				<portlet:param name="mvcPath" value="/html/guestbook/view.jsp" />
+				<portlet:param name="guestbookId" value="${guestbook.guestbookId}" />
+			</portlet:renderURL>
 			
-			<c:otherwise>
-				<aui:nav-item href="${viewPageURL}" label="${guestbook.name}" />
-			</c:otherwise>
-		</c:choose>
+			<c:choose>
+				<c:when test="${guestbook.guestbookId == guestbookId}">
+					<aui:nav-item cssClass="active" href="${viewPageURL}" label="${guestbook.name}" />
+				</c:when>
+				
+				<c:otherwise>
+					<aui:nav-item href="${viewPageURL}" label="${guestbook.name}" />
+				</c:otherwise>
+			</c:choose>
+		</c:if>
 	</c:forEach>
 </aui:nav>
 
@@ -34,8 +36,12 @@
 		<portlet:param name="guestbookId" value="${guestbookId}" />
 	</portlet:renderURL>
 
-	<aui:button onClick="${addGuestbookURL}" value="Add Guestbook" />
-	<aui:button onClick="${addEntryURL}" value="Add Entry"/>
+	<c:if test="${permissionChecker:canAddGuestbookModel(permissionChecker,scopeGroupId,'ADD_GUESTBOOK')}">
+		<aui:button onClick="${addGuestbookURL}" value="Add Guestbook" />
+	</c:if>
+	<c:if test="${permissionChecker:canPerfomActionGuestbook(permissionChecker,guestbookSelected,'ADD_ENTRY')}">
+		<aui:button onClick="${addEntryURL}" value="Add Entry"/>
+	</c:if>
 
 </aui:button-row>
 

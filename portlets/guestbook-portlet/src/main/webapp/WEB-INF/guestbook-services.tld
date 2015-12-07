@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
 	version="2.1">
 
-	<display-name>SIGEX Date Services Functions</display-name>
+	<display-name>Guestbook Services</display-name>
 	<tlib-version>1.0</tlib-version>
 	<short-name>guestbook</short-name>
 	<uri>http://www.diogopeixoto.com/guestbook-services</uri>
@@ -25,5 +25,10 @@
 		<name>findGuestbookByGroupId</name>
 		<function-class>com.liferay.docs.guestbook.service.GuestbookServiceUtil</function-class>
 		<function-signature>java.util.List findByGroupId(long)</function-signature>
+	</function>
+	<function>
+		<name>findGuestbookByPrimaryKey</name>
+		<function-class>com.liferay.docs.guestbook.service.GuestbookServiceUtil</function-class>
+		<function-signature>com.liferay.docs.guestbook.model.Guestbook findByPrimaryKey(long)</function-signature>
 	</function>
 </taglib>
