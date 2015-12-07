@@ -5,7 +5,7 @@
 
 	<display-name>Guestbook Permission Checker Services</display-name>
 	<tlib-version>1.0</tlib-version>
-	<short-name>guestbook</short-name>
+	<short-name>permission-checker-services</short-name>
 	<uri>http://www.diogopeixoto.com/permission-checker-services</uri>
 	
 	<!-- Entry -->
