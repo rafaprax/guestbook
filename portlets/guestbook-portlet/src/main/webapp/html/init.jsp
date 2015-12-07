@@ -4,6 +4,7 @@
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="theme" %>
 <%@ taglib uri="http://www.diogopeixoto.com/guestbook-services" prefix="guestbook" %>
+<%@ taglib uri="http://www.diogopeixoto.com/permission-checker-services" prefix="permissionChecker" %>
 
 <portlet:defineObjects />
 <theme:defineObjects />

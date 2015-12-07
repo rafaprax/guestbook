@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	version="2.1">
+
+	<display-name>Guestbook Permission Checker Services</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>guestbook</short-name>
+	<uri>http://www.diogopeixoto.com/permission-checker-services</uri>
+	
+	<!-- Entry -->
+	<function>
+		<name>canPerfomActionEntry</name>
+		<function-class>com.liferay.docs.guestbook.service.permission.EntryPermission</function-class>
+		<function-signature>boolean contains(com.liferay.portal.security.permission.PermissionChecker,com.liferay.docs.guestbook.model.Entry,java.lang.String)</function-signature>
+	</function>
+	
+	<!-- Guestbook -->
+	<function>
+		<name>canPerfomActionGuestbook</name>
+		<function-class>com.liferay.docs.guestbook.service.permission.GuestbookPermission</function-class>
+		<function-signature>boolean contains(com.liferay.portal.security.permission.PermissionChecker,com.liferay.docs.guestbook.model.Guestbook,java.lang.String)</function-signature>
+	</function>
+
+	<!-- GuestbookModel -->
+	<function>
+		<name>canAddGuestbookModel</name>
+		<function-class>com.liferay.docs.guestbook.service.permission.GuestbookModelPermission</function-class>
+		<function-signature>boolean contains(com.liferay.portal.security.permission.PermissionChecker,long,java.lang.String)</function-signature>
+	</function>
+</taglib>
