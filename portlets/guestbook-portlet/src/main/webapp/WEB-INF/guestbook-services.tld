@@ -19,6 +19,11 @@
 		<function-class>com.liferay.docs.guestbook.service.EntryServiceUtil</function-class>
 		<function-signature>java.util.List findByGroupIdGuestbookId(long,long,int,int)</function-signature>
 	</function>
+	<function>
+		<name>findEntryByPrimaryKey</name>
+		<function-class>com.liferay.docs.guestbook.service.EntryServiceUtil</function-class>
+		<function-signature>com.liferay.docs.guestbook.model.Entry findByPrimaryKey(long)</function-signature>
+	</function>
 	
 	<!-- Guestbook -->
 	<function>
