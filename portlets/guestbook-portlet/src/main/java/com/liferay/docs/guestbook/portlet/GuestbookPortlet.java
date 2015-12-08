@@ -98,7 +98,8 @@ public class GuestbookPortlet extends MVCPortlet {
 			Entry entry = getEntryFromRequest(request);
 
 			response.setRenderParameter(
-				"guestbookId", Long.toString(entry.getGuestbookId()));
+				RequestParameterKeys.ENTRY_PARAM_GUESTBOOK_ID,
+				Long.toString(entry.getGuestbookId()));
 
 			EntryServiceUtil.delete(entry);
 
@@ -116,7 +117,8 @@ public class GuestbookPortlet extends MVCPortlet {
 				Guestbook.class.getName(), request);
 
 		try {
-			Guestbook guestbook = getGuestbookFromRequest(request);
+			Guestbook guestbook =
+				GuestbookRequestHelper.getGuestbookFromRequest(request);
 			GuestbookServiceUtil.add(guestbook, serviceContext);
 
 			SessionMessages.add(request, MessageKeys.GUESTBOOK_ADDED);
@@ -170,27 +172,5 @@ public class GuestbookPortlet extends MVCPortlet {
 		entry.setGuestbookId(guestbookId);
 
 		return entry;
-	}
-
-	private Guestbook getGuestbookFromRequest(ActionRequest request)
-		throws SystemException {
-
-		long guestbookId =
-			ParamUtil.getLong(request, RequestParameterKeys.GUESTBOOK_PARAM_ID);
-
-		Guestbook guestbook;
-		if (guestbookId > 0) {
-			guestbook = GuestbookServiceUtil.findByPrimaryKey(guestbookId);
-		}
-		else {
-			guestbook = GuestbookLocalServiceUtil.createGuestbook(0);
-		}
-
-		String name =
-			ParamUtil.getString(
-				request, RequestParameterKeys.GUESTBOOK_PARAM_NAME);
-		guestbook.setName(name);
-
-		return guestbook;
 	}
 }
