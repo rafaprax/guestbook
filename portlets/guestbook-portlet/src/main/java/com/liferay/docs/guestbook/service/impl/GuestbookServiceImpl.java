@@ -36,10 +36,28 @@ public class GuestbookServiceImpl extends GuestbookServiceBaseImpl {
 		return guestbookLocalService.add(guestbook, serviceContext);
 	}
 
+	public Guestbook delete(Guestbook guestbook)
+		throws PortalException, SystemException {
+
+		return guestbookLocalService.delete(guestbook);
+	}
+
+	public int countByGroupId(long groupId)
+		throws SystemException {
+
+		return guestbookLocalService.countByGroupId(groupId);
+	}
+
 	public List<Guestbook> findByGroupId(long groupId)
 		throws SystemException {
 
 		return guestbookLocalService.findByGroupId(groupId);
+	}
+
+	public List<Guestbook> findByGroupId(long groupId, int start, int end)
+		throws SystemException {
+
+		return guestbookLocalService.findByGroupId(groupId, start, end);
 	}
 
 	public Guestbook findByPrimaryKey(long guestbookId)

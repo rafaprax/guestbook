@@ -13,4 +13,9 @@
 		<function-class>com.liferay.docs.guestbook.service.classname.ClassnameService</function-class>
 		<function-signature>java.lang.String getEntryClassname()</function-signature>
 	</function>
+	<function>
+		<name>getGuestbookClassname</name>
+		<function-class>com.liferay.docs.guestbook.service.classname.ClassnameService</function-class>
+		<function-signature>java.lang.String getGuestbookClassname()</function-signature>
+	</function>
 </taglib>

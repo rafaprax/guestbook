@@ -27,9 +27,19 @@
 	
 	<!-- Guestbook -->
 	<function>
+		<name>countGuestbookByGroupId</name>
+		<function-class>com.liferay.docs.guestbook.service.GuestbookServiceUtil</function-class>
+		<function-signature>int countByGroupId(long)</function-signature>
+	</function>
+	<function>
 		<name>findGuestbookByGroupId</name>
 		<function-class>com.liferay.docs.guestbook.service.GuestbookServiceUtil</function-class>
 		<function-signature>java.util.List findByGroupId(long)</function-signature>
+	</function>
+	<function>
+		<name>findGuestbookByGroupIdPaginator</name>
+		<function-class>com.liferay.docs.guestbook.service.GuestbookServiceUtil</function-class>
+		<function-signature>java.util.List findByGroupId(long,int,int)</function-signature>
 	</function>
 	<function>
 		<name>findGuestbookByPrimaryKey</name>

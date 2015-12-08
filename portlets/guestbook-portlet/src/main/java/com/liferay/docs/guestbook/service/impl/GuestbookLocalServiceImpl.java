@@ -2,12 +2,16 @@
 package com.liferay.docs.guestbook.service.impl;
 
 import com.liferay.docs.guestbook.GuestbookNameException;
+import com.liferay.docs.guestbook.model.Entry;
 import com.liferay.docs.guestbook.model.Guestbook;
+import com.liferay.docs.guestbook.service.EntryLocalServiceUtil;
+import com.liferay.docs.guestbook.service.EntryServiceUtil;
 import com.liferay.docs.guestbook.service.base.GuestbookLocalServiceBaseImpl;
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 
@@ -48,12 +52,45 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 
 		if (addResource) {
 			resourceLocalService.addResources(
-				guestbook.getCompanyId(), guestbook.getGroupId(),
-				guestbook.getUserId(), Guestbook.class.getName(),
-				guestbook.getGuestbookId(), false, true, true);
+				serviceContext.getCompanyId(),
+				serviceContext.getScopeGroupId(), serviceContext.getUserId(),
+				Guestbook.class.getName(), guestbook.getGuestbookId(), false,
+				true, true);
+		}
+		else {
+			resourceLocalService.updateResources(
+				serviceContext.getCompanyId(),
+				serviceContext.getScopeGroupId(), Guestbook.class.getName(),
+				guestbook.getGuestbookId(),
+				serviceContext.getGroupPermissions(),
+				serviceContext.getGuestPermissions());
 		}
 
-		return super.addGuestbook(guestbook);
+		return super.updateGuestbook(guestbook);
+	}
+
+	public Guestbook delete(Guestbook guestbook)
+		throws PortalException, SystemException {
+
+		List<Entry> entries =
+			EntryLocalServiceUtil.findByGroupIdGuestbookId(
+				guestbook.getGroupId(), guestbook.getGuestbookId());
+
+		for (Entry entry : entries) {
+			EntryServiceUtil.delete(entry);
+		}
+
+		resourceLocalService.deleteResource(
+			guestbook.getCompanyId(), Entry.class.getName(),
+			ResourceConstants.SCOPE_INDIVIDUAL, guestbook.getGuestbookId());
+
+		return super.deleteGuestbook(guestbook);
+	}
+
+	public int countByGroupId(long groupId)
+		throws SystemException {
+
+		return guestbookPersistence.countByGroupId(groupId);
 	}
 
 	public List<Guestbook> findByGroupId(long groupId)
@@ -77,17 +114,20 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 
 		Date now = new Date();
 
-		long guestbookId =
-			counterLocalService.increment(Guestbook.class.getName());
+		if (guestbook.getGuestbookId() <= 0) {
+			long guestbookId =
+				counterLocalService.increment(Guestbook.class.getName());
 
-		guestbook.setGuestbookId(guestbookId);
-		guestbook.setUuid(serviceContext.getUuid());
+			guestbook.setGuestbookId(guestbookId);
+			guestbook.setUuid(serviceContext.getUuid());
 
-		guestbook.setCompanyId(user.getCompanyId());
-		guestbook.setGroupId(serviceContext.getScopeGroupId());
-		guestbook.setUserId(user.getUserId());
-		guestbook.setUserName(user.getFullName());
-		guestbook.setCreateDate(serviceContext.getCreateDate(now));
+			guestbook.setCompanyId(user.getCompanyId());
+			guestbook.setGroupId(serviceContext.getScopeGroupId());
+			guestbook.setUserId(user.getUserId());
+			guestbook.setUserName(user.getFullName());
+			guestbook.setCreateDate(serviceContext.getCreateDate(now));
+		}
+
 		guestbook.setModifiedDate(serviceContext.getModifiedDate(now));
 
 		guestbook.setExpandoBridgeAttributes(serviceContext);
