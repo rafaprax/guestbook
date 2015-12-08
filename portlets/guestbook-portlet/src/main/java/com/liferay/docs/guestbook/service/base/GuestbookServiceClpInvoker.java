@@ -19,6 +19,12 @@ public class GuestbookServiceClpInvoker {
     private String[] _methodParameterTypes31;
     private String _methodName32;
     private String[] _methodParameterTypes32;
+    private String _methodName33;
+    private String[] _methodParameterTypes33;
+    private String _methodName34;
+    private String[] _methodParameterTypes34;
+    private String _methodName35;
+    private String[] _methodParameterTypes35;
 
     public GuestbookServiceClpInvoker() {
         _methodName24 = "getBeanIdentifier";
@@ -36,13 +42,27 @@ public class GuestbookServiceClpInvoker {
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName31 = "findByGroupId";
+        _methodName31 = "delete";
 
-        _methodParameterTypes31 = new String[] { "long" };
+        _methodParameterTypes31 = new String[] {
+                "com.liferay.docs.guestbook.model.Guestbook"
+            };
 
-        _methodName32 = "findByPrimaryKey";
+        _methodName32 = "countByGroupId";
 
         _methodParameterTypes32 = new String[] { "long" };
+
+        _methodName33 = "findByGroupId";
+
+        _methodParameterTypes33 = new String[] { "long" };
+
+        _methodName34 = "findByGroupId";
+
+        _methodParameterTypes34 = new String[] { "long", "int", "int" };
+
+        _methodName35 = "findByPrimaryKey";
+
+        _methodParameterTypes35 = new String[] { "long" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -67,11 +87,28 @@ public class GuestbookServiceClpInvoker {
 
         if (_methodName31.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
-            return GuestbookServiceUtil.findByGroupId(((Long) arguments[0]).longValue());
+            return GuestbookServiceUtil.delete((com.liferay.docs.guestbook.model.Guestbook) arguments[0]);
         }
 
         if (_methodName32.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes32, parameterTypes)) {
+            return GuestbookServiceUtil.countByGroupId(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName33.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes33, parameterTypes)) {
+            return GuestbookServiceUtil.findByGroupId(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName34.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+            return GuestbookServiceUtil.findByGroupId(((Long) arguments[0]).longValue(),
+                ((Integer) arguments[1]).intValue(),
+                ((Integer) arguments[2]).intValue());
+        }
+
+        if (_methodName35.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
             return GuestbookServiceUtil.findByPrimaryKey(((Long) arguments[0]).longValue());
         }
 

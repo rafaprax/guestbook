@@ -66,11 +66,52 @@ public class GuestbookServiceSoap {
         }
     }
 
+    public static com.liferay.docs.guestbook.model.GuestbookSoap delete(
+        com.liferay.docs.guestbook.model.GuestbookSoap guestbook)
+        throws RemoteException {
+        try {
+            com.liferay.docs.guestbook.model.Guestbook returnValue = GuestbookServiceUtil.delete(com.liferay.docs.guestbook.model.impl.GuestbookModelImpl.toModel(
+                        guestbook));
+
+            return com.liferay.docs.guestbook.model.GuestbookSoap.toSoapModel(returnValue);
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static int countByGroupId(long groupId) throws RemoteException {
+        try {
+            int returnValue = GuestbookServiceUtil.countByGroupId(groupId);
+
+            return returnValue;
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
     public static com.liferay.docs.guestbook.model.GuestbookSoap[] findByGroupId(
         long groupId) throws RemoteException {
         try {
             java.util.List<com.liferay.docs.guestbook.model.Guestbook> returnValue =
                 GuestbookServiceUtil.findByGroupId(groupId);
+
+            return com.liferay.docs.guestbook.model.GuestbookSoap.toSoapModels(returnValue);
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static com.liferay.docs.guestbook.model.GuestbookSoap[] findByGroupId(
+        long groupId, int start, int end) throws RemoteException {
+        try {
+            java.util.List<com.liferay.docs.guestbook.model.Guestbook> returnValue =
+                GuestbookServiceUtil.findByGroupId(groupId, start, end);
 
             return com.liferay.docs.guestbook.model.GuestbookSoap.toSoapModels(returnValue);
         } catch (Exception e) {

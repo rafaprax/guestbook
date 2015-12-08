@@ -59,6 +59,10 @@ public class GuestbookLocalServiceClpInvoker {
     private String[] _methodParameterTypes51;
     private String _methodName52;
     private String[] _methodParameterTypes52;
+    private String _methodName53;
+    private String[] _methodParameterTypes53;
+    private String _methodName54;
+    private String[] _methodParameterTypes54;
 
     public GuestbookLocalServiceClpInvoker() {
         _methodName0 = "addGuestbook";
@@ -174,13 +178,23 @@ public class GuestbookLocalServiceClpInvoker {
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName51 = "findByGroupId";
+        _methodName51 = "delete";
 
-        _methodParameterTypes51 = new String[] { "long" };
+        _methodParameterTypes51 = new String[] {
+                "com.liferay.docs.guestbook.model.Guestbook"
+            };
 
-        _methodName52 = "findByGroupId";
+        _methodName52 = "countByGroupId";
 
-        _methodParameterTypes52 = new String[] { "long", "int", "int" };
+        _methodParameterTypes52 = new String[] { "long" };
+
+        _methodName53 = "findByGroupId";
+
+        _methodParameterTypes53 = new String[] { "long" };
+
+        _methodName54 = "findByGroupId";
+
+        _methodParameterTypes54 = new String[] { "long", "int", "int" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -316,11 +330,21 @@ public class GuestbookLocalServiceClpInvoker {
 
         if (_methodName51.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
-            return GuestbookLocalServiceUtil.findByGroupId(((Long) arguments[0]).longValue());
+            return GuestbookLocalServiceUtil.delete((com.liferay.docs.guestbook.model.Guestbook) arguments[0]);
         }
 
         if (_methodName52.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+            return GuestbookLocalServiceUtil.countByGroupId(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName53.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
+            return GuestbookLocalServiceUtil.findByGroupId(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName54.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
             return GuestbookLocalServiceUtil.findByGroupId(((Long) arguments[0]).longValue(),
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue());

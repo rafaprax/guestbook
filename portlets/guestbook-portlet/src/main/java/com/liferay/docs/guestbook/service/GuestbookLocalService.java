@@ -303,6 +303,14 @@ public interface GuestbookLocalService extends BaseLocalService,
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
+    public com.liferay.docs.guestbook.model.Guestbook delete(
+        com.liferay.docs.guestbook.model.Guestbook guestbook)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    public int countByGroupId(long groupId)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
     public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
         long groupId)
         throws com.liferay.portal.kernel.exception.SystemException;
