@@ -61,6 +61,8 @@ public class EntryLocalServiceClpInvoker {
     private String[] _methodParameterTypes52;
     private String _methodName53;
     private String[] _methodParameterTypes53;
+    private String _methodName54;
+    private String[] _methodParameterTypes54;
 
     public EntryLocalServiceClpInvoker() {
         _methodName0 = "addEntry";
@@ -176,17 +178,23 @@ public class EntryLocalServiceClpInvoker {
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName51 = "countByGroupIdGuestbookId";
+        _methodName51 = "delete";
 
-        _methodParameterTypes51 = new String[] { "long", "long" };
+        _methodParameterTypes51 = new String[] {
+                "com.liferay.docs.guestbook.model.Entry"
+            };
 
-        _methodName52 = "findByGroupIdGuestbookId";
+        _methodName52 = "countByGroupIdGuestbookId";
 
         _methodParameterTypes52 = new String[] { "long", "long" };
 
         _methodName53 = "findByGroupIdGuestbookId";
 
-        _methodParameterTypes53 = new String[] { "long", "long", "int", "int" };
+        _methodParameterTypes53 = new String[] { "long", "long" };
+
+        _methodName54 = "findByGroupIdGuestbookId";
+
+        _methodParameterTypes54 = new String[] { "long", "long", "int", "int" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -322,18 +330,23 @@ public class EntryLocalServiceClpInvoker {
 
         if (_methodName51.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
-            return EntryLocalServiceUtil.countByGroupIdGuestbookId(((Long) arguments[0]).longValue(),
-                ((Long) arguments[1]).longValue());
+            return EntryLocalServiceUtil.delete((com.liferay.docs.guestbook.model.Entry) arguments[0]);
         }
 
         if (_methodName52.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
-            return EntryLocalServiceUtil.findByGroupIdGuestbookId(((Long) arguments[0]).longValue(),
+            return EntryLocalServiceUtil.countByGroupIdGuestbookId(((Long) arguments[0]).longValue(),
                 ((Long) arguments[1]).longValue());
         }
 
         if (_methodName53.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
+            return EntryLocalServiceUtil.findByGroupIdGuestbookId(((Long) arguments[0]).longValue(),
+                ((Long) arguments[1]).longValue());
+        }
+
+        if (_methodName54.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
             return EntryLocalServiceUtil.findByGroupIdGuestbookId(((Long) arguments[0]).longValue(),
                 ((Long) arguments[1]).longValue(),
                 ((Integer) arguments[2]).intValue(),

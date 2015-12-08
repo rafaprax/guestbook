@@ -60,6 +60,8 @@ public class EntryLocalServiceClp implements EntryLocalService {
     private String[] _methodParameterTypes25;
     private String _methodName26;
     private String[] _methodParameterTypes26;
+    private String _methodName27;
+    private String[] _methodParameterTypes27;
 
     public EntryLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -177,17 +179,23 @@ public class EntryLocalServiceClp implements EntryLocalService {
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName24 = "countByGroupIdGuestbookId";
+        _methodName24 = "delete";
 
-        _methodParameterTypes24 = new String[] { "long", "long" };
+        _methodParameterTypes24 = new String[] {
+                "com.liferay.docs.guestbook.model.Entry"
+            };
 
-        _methodName25 = "findByGroupIdGuestbookId";
+        _methodName25 = "countByGroupIdGuestbookId";
 
         _methodParameterTypes25 = new String[] { "long", "long" };
 
         _methodName26 = "findByGroupIdGuestbookId";
 
-        _methodParameterTypes26 = new String[] { "long", "long", "int", "int" };
+        _methodParameterTypes26 = new String[] { "long", "long" };
+
+        _methodName27 = "findByGroupIdGuestbookId";
+
+        _methodParameterTypes27 = new String[] { "long", "long", "int", "int" };
     }
 
     @Override
@@ -861,13 +869,46 @@ public class EntryLocalServiceClp implements EntryLocalService {
     }
 
     @Override
-    public int countByGroupIdGuestbookId(long groupId, long guestbookId)
-        throws com.liferay.portal.kernel.exception.SystemException {
+    public com.liferay.docs.guestbook.model.Entry delete(
+        com.liferay.docs.guestbook.model.Entry entry)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
         try {
             returnObj = _invokableLocalService.invokeMethod(_methodName24,
                     _methodParameterTypes24,
+                    new Object[] { ClpSerializer.translateInput(entry) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.docs.guestbook.model.Entry) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public int countByGroupIdGuestbookId(long groupId, long guestbookId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName25,
+                    _methodParameterTypes25,
                     new Object[] { groupId, guestbookId });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
@@ -894,8 +935,8 @@ public class EntryLocalServiceClp implements EntryLocalService {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName25,
-                    _methodParameterTypes25,
+            returnObj = _invokableLocalService.invokeMethod(_methodName26,
+                    _methodParameterTypes26,
                     new Object[] { groupId, guestbookId });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
@@ -922,8 +963,8 @@ public class EntryLocalServiceClp implements EntryLocalService {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName26,
-                    _methodParameterTypes26,
+            returnObj = _invokableLocalService.invokeMethod(_methodName27,
+                    _methodParameterTypes27,
                     new Object[] { groupId, guestbookId, start, end });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);

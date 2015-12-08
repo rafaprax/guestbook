@@ -57,7 +57,15 @@ public interface EntryService extends BaseService, InvokableService {
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
+    public com.liferay.docs.guestbook.model.Entry delete(
+        com.liferay.docs.guestbook.model.Entry entry)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
     public int countByGroupIdGuestbookId(long groupId, long guestbookId)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    public com.liferay.docs.guestbook.model.Entry findByPrimaryKey(long entryId)
         throws com.liferay.portal.kernel.exception.SystemException;
 
     public java.util.List<com.liferay.docs.guestbook.model.Entry> findByGroupIdGuestbookId(

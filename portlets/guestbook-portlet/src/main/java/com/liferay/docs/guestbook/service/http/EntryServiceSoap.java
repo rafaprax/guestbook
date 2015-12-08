@@ -66,6 +66,21 @@ public class EntryServiceSoap {
         }
     }
 
+    public static com.liferay.docs.guestbook.model.EntrySoap delete(
+        com.liferay.docs.guestbook.model.EntrySoap entry)
+        throws RemoteException {
+        try {
+            com.liferay.docs.guestbook.model.Entry returnValue = EntryServiceUtil.delete(com.liferay.docs.guestbook.model.impl.EntryModelImpl.toModel(
+                        entry));
+
+            return com.liferay.docs.guestbook.model.EntrySoap.toSoapModel(returnValue);
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
     public static int countByGroupIdGuestbookId(long groupId, long guestbookId)
         throws RemoteException {
         try {
@@ -73,6 +88,19 @@ public class EntryServiceSoap {
                     guestbookId);
 
             return returnValue;
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
+    public static com.liferay.docs.guestbook.model.EntrySoap findByPrimaryKey(
+        long entryId) throws RemoteException {
+        try {
+            com.liferay.docs.guestbook.model.Entry returnValue = EntryServiceUtil.findByPrimaryKey(entryId);
+
+            return com.liferay.docs.guestbook.model.EntrySoap.toSoapModel(returnValue);
         } catch (Exception e) {
             _log.error(e, e);
 

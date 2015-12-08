@@ -19,6 +19,10 @@ public class EntryServiceClpInvoker {
     private String[] _methodParameterTypes31;
     private String _methodName32;
     private String[] _methodParameterTypes32;
+    private String _methodName33;
+    private String[] _methodParameterTypes33;
+    private String _methodName34;
+    private String[] _methodParameterTypes34;
 
     public EntryServiceClpInvoker() {
         _methodName24 = "getBeanIdentifier";
@@ -36,13 +40,23 @@ public class EntryServiceClpInvoker {
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName31 = "countByGroupIdGuestbookId";
+        _methodName31 = "delete";
 
-        _methodParameterTypes31 = new String[] { "long", "long" };
+        _methodParameterTypes31 = new String[] {
+                "com.liferay.docs.guestbook.model.Entry"
+            };
 
-        _methodName32 = "findByGroupIdGuestbookId";
+        _methodName32 = "countByGroupIdGuestbookId";
 
-        _methodParameterTypes32 = new String[] { "long", "long", "int", "int" };
+        _methodParameterTypes32 = new String[] { "long", "long" };
+
+        _methodName33 = "findByPrimaryKey";
+
+        _methodParameterTypes33 = new String[] { "long" };
+
+        _methodName34 = "findByGroupIdGuestbookId";
+
+        _methodParameterTypes34 = new String[] { "long", "long", "int", "int" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -67,12 +81,22 @@ public class EntryServiceClpInvoker {
 
         if (_methodName31.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
-            return EntryServiceUtil.countByGroupIdGuestbookId(((Long) arguments[0]).longValue(),
-                ((Long) arguments[1]).longValue());
+            return EntryServiceUtil.delete((com.liferay.docs.guestbook.model.Entry) arguments[0]);
         }
 
         if (_methodName32.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes32, parameterTypes)) {
+            return EntryServiceUtil.countByGroupIdGuestbookId(((Long) arguments[0]).longValue(),
+                ((Long) arguments[1]).longValue());
+        }
+
+        if (_methodName33.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes33, parameterTypes)) {
+            return EntryServiceUtil.findByPrimaryKey(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName34.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
             return EntryServiceUtil.findByGroupIdGuestbookId(((Long) arguments[0]).longValue(),
                 ((Long) arguments[1]).longValue(),
                 ((Integer) arguments[2]).intValue(),

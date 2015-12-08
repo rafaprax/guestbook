@@ -54,9 +54,23 @@ public class EntryServiceWrapper implements EntryService,
     }
 
     @Override
+    public com.liferay.docs.guestbook.model.Entry delete(
+        com.liferay.docs.guestbook.model.Entry entry)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _entryService.delete(entry);
+    }
+
+    @Override
     public int countByGroupIdGuestbookId(long groupId, long guestbookId)
         throws com.liferay.portal.kernel.exception.SystemException {
         return _entryService.countByGroupIdGuestbookId(groupId, guestbookId);
+    }
+
+    @Override
+    public com.liferay.docs.guestbook.model.Entry findByPrimaryKey(long entryId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _entryService.findByPrimaryKey(entryId);
     }
 
     @Override

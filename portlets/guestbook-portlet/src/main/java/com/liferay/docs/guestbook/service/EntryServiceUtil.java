@@ -59,9 +59,22 @@ public class EntryServiceUtil {
         return getService().add(entry, serviceContext);
     }
 
+    public static com.liferay.docs.guestbook.model.Entry delete(
+        com.liferay.docs.guestbook.model.Entry entry)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().delete(entry);
+    }
+
     public static int countByGroupIdGuestbookId(long groupId, long guestbookId)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getService().countByGroupIdGuestbookId(groupId, guestbookId);
+    }
+
+    public static com.liferay.docs.guestbook.model.Entry findByPrimaryKey(
+        long entryId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().findByPrimaryKey(entryId);
     }
 
     public static java.util.List<com.liferay.docs.guestbook.model.Entry> findByGroupIdGuestbookId(

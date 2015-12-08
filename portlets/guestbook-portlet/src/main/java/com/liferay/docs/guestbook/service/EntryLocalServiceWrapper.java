@@ -342,6 +342,14 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
     }
 
     @Override
+    public com.liferay.docs.guestbook.model.Entry delete(
+        com.liferay.docs.guestbook.model.Entry entry)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _entryLocalService.delete(entry);
+    }
+
+    @Override
     public int countByGroupIdGuestbookId(long groupId, long guestbookId)
         throws com.liferay.portal.kernel.exception.SystemException {
         return _entryLocalService.countByGroupIdGuestbookId(groupId, guestbookId);
