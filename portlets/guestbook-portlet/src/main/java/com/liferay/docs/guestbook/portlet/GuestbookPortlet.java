@@ -40,8 +40,7 @@ public class GuestbookPortlet extends MVCPortlet {
 
 			long guestbookId =
 				ParamUtil.getLong(
-					renderRequest,
-					RequestParameterKeys.GUESTBOOK_PARAM_ID);
+					renderRequest, RequestParameterKeys.GUESTBOOK_PARAM_ID);
 
 			List<Guestbook> guestbooks =
 				GuestbookServiceUtil.findByGroupId(serviceContext.getScopeGroupId());
@@ -93,6 +92,22 @@ public class GuestbookPortlet extends MVCPortlet {
 
 	}
 
+	public void deleteEntry(ActionRequest request, ActionResponse response) {
+
+		try {
+			Entry entry = getEntryFromRequest(request);
+
+			response.setRenderParameter(
+				"guestbookId", Long.toString(entry.getGuestbookId()));
+
+			EntryServiceUtil.delete(entry);
+
+		}
+		catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+		}
+	}
+
 	public void addGuestbook(ActionRequest request, ActionResponse response)
 		throws PortalException, SystemException {
 
@@ -124,9 +139,19 @@ public class GuestbookPortlet extends MVCPortlet {
 		return GuestbookServiceUtil.add(guestbook, serviceContext);
 	}
 
-	private Entry getEntryFromRequest(ActionRequest request) {
+	private Entry getEntryFromRequest(ActionRequest request)
+		throws SystemException {
 
-		Entry entry = EntryLocalServiceUtil.createEntry(0);
+		long entryId =
+			ParamUtil.getLong(request, RequestParameterKeys.ENTRY_PARAM_ID);
+
+		Entry entry;
+		if (entryId > 0) {
+			entry = EntryServiceUtil.findByPrimaryKey(entryId);
+		}
+		else {
+			entry = EntryLocalServiceUtil.createEntry(0);
+		}
 
 		String name =
 			ParamUtil.getString(request, RequestParameterKeys.ENTRY_PARAM_NAME);

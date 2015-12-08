@@ -10,6 +10,7 @@ import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 
@@ -53,8 +54,25 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 				entry.getCompanyId(), entry.getGroupId(), entry.getUserId(),
 				Entry.class.getName(), entry.getEntryId(), false, true, true);
 		}
+		else {
+			resourceLocalService.updateResources(
+				entry.getCompanyId(), entry.getGroupId(),
+				Entry.class.getName(), entry.getEntryId(),
+				serviceContext.getGroupPermissions(),
+				serviceContext.getGuestPermissions());
+		}
 
-		return super.addEntry(entry);
+		return super.updateEntry(entry);
+	}
+
+	public Entry delete(Entry entry)
+		throws PortalException, SystemException {
+
+		resourceLocalService.deleteResource(
+			entry.getCompanyId(), Entry.class.getName(),
+			ResourceConstants.SCOPE_INDIVIDUAL, entry.getEntryId());
+
+		return super.deleteEntry(entry);
 	}
 
 	public int countByGroupIdGuestbookId(long groupId, long guestbookId)
@@ -102,16 +120,19 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		Date now = new Date();
 
-		long entryId = counterLocalService.increment(Entry.class.getName());
+		if(entry.getEntryId() <= 0){
+			long entryId = counterLocalService.increment(Entry.class.getName());
 
-		entry.setEntryId(entryId);
-		entry.setUuid(serviceContext.getUuid());
-
-		entry.setCompanyId(user.getCompanyId());
-		entry.setGroupId(serviceContext.getScopeGroupId());
-		entry.setUserId(user.getUserId());
-		entry.setUserName(user.getFullName());
-		entry.setCreateDate(serviceContext.getCreateDate(now));
+			entry.setEntryId(entryId);
+			entry.setUuid(serviceContext.getUuid());
+			
+			entry.setCompanyId(user.getCompanyId());
+			entry.setGroupId(serviceContext.getScopeGroupId());
+			entry.setUserId(user.getUserId());
+			entry.setUserName(user.getFullName());
+			entry.setCreateDate(serviceContext.getCreateDate(now));
+		}
+		
 		entry.setModifiedDate(serviceContext.getModifiedDate(now));
 
 		entry.setExpandoBridgeAttributes(serviceContext);

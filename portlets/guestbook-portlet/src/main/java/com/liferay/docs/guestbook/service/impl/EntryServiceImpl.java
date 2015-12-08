@@ -36,10 +36,22 @@ public class EntryServiceImpl extends EntryServiceBaseImpl {
 		return entryLocalService.add(entry, serviceContext);
 	}
 
+	public Entry delete(Entry entry)
+		throws PortalException, SystemException {
+
+		return entryLocalService.delete(entry);
+	}
+
 	public int countByGroupIdGuestbookId(long groupId, long guestbookId)
 		throws SystemException {
 
 		return entryLocalService.countByGroupIdGuestbookId(groupId, guestbookId);
+	}
+
+	public Entry findByPrimaryKey(long entryId)
+		throws SystemException {
+
+		return entryLocalService.fetchEntry(entryId);
 	}
 
 	public List<Entry> findByGroupIdGuestbookId(
