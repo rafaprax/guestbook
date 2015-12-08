@@ -31,7 +31,6 @@ public class GuestbookPermission {
 				guestbook.getGuestbookId(), actionId);
 		}
 		catch (Exception e) {
-			System.out.println(guestbook);
 			throw new PortalException();
 		}
 	}
