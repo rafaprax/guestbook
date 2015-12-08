@@ -45,6 +45,6 @@ public class GuestbookServiceImpl extends GuestbookServiceBaseImpl {
 	public Guestbook findByPrimaryKey(long guestbookId)
 		throws SystemException {
 
-		return guestbookPersistence.fetchByPrimaryKey(guestbookId);
+		return guestbookLocalService.fetchGuestbook(guestbookId);
 	}
 }
