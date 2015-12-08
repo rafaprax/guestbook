@@ -9,7 +9,7 @@
 <aui:form action="${addGuestbookURL}" name="guestbook-form">
 
 	<aui:fieldset>
-		<aui:input name="guestbook-name" label="name"/>
+		<aui:input name="name" label="name"/>
 	</aui:fieldset>
 
 	<aui:button-row>

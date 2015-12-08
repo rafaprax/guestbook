@@ -12,5 +12,5 @@ public class RequestParameterKeys {
 
 	//Guestbook
 	public static final String GUESTBOOK_PARAM_ID = "guestbookId";
-	public static final String GUESTBOOK_PARAM_NAME = "guestbook-name";
+	public static final String GUESTBOOK_PARAM_NAME = "name";
 }

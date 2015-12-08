@@ -1,4 +1,3 @@
-<%@page import="com.liferay.docs.guestbook.model.Entry"%>
 <%@include file="/html/init.jsp"%>
 
 <c:set var="entry" value="${guestbook:findEntryByPrimaryKey(param.entryId)}"/>
@@ -22,7 +21,7 @@
 	</aui:fieldset>
 
 	<aui:button-row>
-		<aui:button type="submit"></aui:button>
-		<aui:button type="cancel" onClick="${viewURL}"></aui:button>
+		<aui:button type="submit"/>
+		<aui:button type="cancel" onClick="${viewURL}"/>
 	</aui:button-row>
 </aui:form>
