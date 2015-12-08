@@ -51,14 +51,15 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		if (addResource) {
 			resourceLocalService.addResources(
-				entry.getCompanyId(), entry.getGroupId(), entry.getUserId(),
+				serviceContext.getCompanyId(),
+				serviceContext.getScopeGroupId(), serviceContext.getUserId(),
 				Entry.class.getName(), entry.getEntryId(), false, true, true);
 		}
 		else {
 			resourceLocalService.updateResources(
-				entry.getCompanyId(), entry.getGroupId(),
-				Entry.class.getName(), entry.getEntryId(),
-				serviceContext.getGroupPermissions(),
+				serviceContext.getCompanyId(),
+				serviceContext.getScopeGroupId(), Entry.class.getName(),
+				entry.getEntryId(), serviceContext.getGroupPermissions(),
 				serviceContext.getGuestPermissions());
 		}
 
@@ -120,19 +121,19 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		Date now = new Date();
 
-		if(entry.getEntryId() <= 0){
+		if (entry.getEntryId() <= 0) {
 			long entryId = counterLocalService.increment(Entry.class.getName());
 
 			entry.setEntryId(entryId);
 			entry.setUuid(serviceContext.getUuid());
-			
+
 			entry.setCompanyId(user.getCompanyId());
 			entry.setGroupId(serviceContext.getScopeGroupId());
 			entry.setUserId(user.getUserId());
 			entry.setUserName(user.getFullName());
 			entry.setCreateDate(serviceContext.getCreateDate(now));
 		}
-		
+
 		entry.setModifiedDate(serviceContext.getModifiedDate(now));
 
 		entry.setExpandoBridgeAttributes(serviceContext);
