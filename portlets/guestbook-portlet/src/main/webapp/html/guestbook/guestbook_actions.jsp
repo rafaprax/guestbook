@@ -17,7 +17,7 @@
 	<c:if test="${permissionChecker:canPerfomActionEntry(permissionChecker,entry,'PERMISSIONS')}">
 
 		<liferay-security:permissionsURL
-			modelResource="${classnameServices:getEntryClassname()}"
+			modelResource="${classnameServices:getEntryClassName()}"
 			modelResourceDescription="${entry.message}"
 			resourcePrimKey="${entry.entryId}"
 			var="permissionsURL" />

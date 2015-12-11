@@ -17,7 +17,7 @@
 	<c:if test="${permissionChecker:canPerfomActionGuestbook(permissionChecker,guestbook,'PERMISSIONS')}">
 
 		<liferay-security:permissionsURL
-			modelResource="${classnameServices:getGuestbookClassname()}"
+			modelResource="${classnameServices:getGuestbookClassName()}"
 			modelResourceDescription="${guestbook.name}"
 			resourcePrimKey="${guestbook.guestbookId}"
 			var="permissionsURL" />

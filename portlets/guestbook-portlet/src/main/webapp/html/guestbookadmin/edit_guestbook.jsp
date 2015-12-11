@@ -9,7 +9,7 @@
 
 <portlet:actionURL name="addGuestbook" var="addGuestbookURL" />
 
-<aui:model-context bean="${guestbook}" model="${classnameServices:getGuestbookClassname()}" />
+<aui:model-context bean="${guestbook}" model="${classnameServices:getGuestbookClass()}" />
 
 <aui:form action="${addGuestbookURL}" name="guestbook-form">
 

@@ -8,7 +8,7 @@
 
 <portlet:actionURL name="addEntry" var="addEntryURL" />
 
-<aui:model-context bean="${entry}" model="${classnameServices:getEntryClassname()}" />
+<aui:model-context bean="${entry}" model="${classnameServices:getEntryClass()}" />
 
 <aui:form action="${addEntryURL}" name="entry-form">
 

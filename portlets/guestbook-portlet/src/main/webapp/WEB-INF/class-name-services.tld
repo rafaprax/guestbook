@@ -8,14 +8,27 @@
 	<short-name>classname-services</short-name>
 	<uri>http://www.diogopeixoto.com/classname-services</uri>
 
+	<!-- Entry -->
 	<function>
-		<name>getEntryClassname</name>
+		<name>getEntryClass</name>
 		<function-class>com.liferay.docs.guestbook.service.classname.ClassnameService</function-class>
-		<function-signature>java.lang.String getEntryClassname()</function-signature>
+		<function-signature>java.lang.Class getEntryClass()</function-signature>
 	</function>
 	<function>
-		<name>getGuestbookClassname</name>
+		<name>getEntryClassName</name>
 		<function-class>com.liferay.docs.guestbook.service.classname.ClassnameService</function-class>
-		<function-signature>java.lang.String getGuestbookClassname()</function-signature>
+		<function-signature>java.lang.String getEntryClassName()</function-signature>
+	</function>
+
+	<!-- Guestbook -->
+	<function>
+		<name>getGuestbookClass</name>
+		<function-class>com.liferay.docs.guestbook.service.classname.ClassnameService</function-class>
+		<function-signature>java.lang.Class getGuestbookClass()</function-signature>
+	</function>
+	<function>
+		<name>getGuestbookClassName</name>
+		<function-class>com.liferay.docs.guestbook.service.classname.ClassnameService</function-class>
+		<function-signature>java.lang.String getGuestbookClassName()</function-signature>
 	</function>
 </taglib>
