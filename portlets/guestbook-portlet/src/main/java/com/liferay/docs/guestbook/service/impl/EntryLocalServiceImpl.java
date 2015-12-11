@@ -9,6 +9,9 @@ import com.liferay.docs.guestbook.service.base.EntryLocalServiceBaseImpl;
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
@@ -49,11 +52,13 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		setAttributes(entry, serviceContext);
 		validate(entry);
 
+		// Resource
 		if (addResource) {
 			resourceLocalService.addResources(
 				serviceContext.getCompanyId(),
 				serviceContext.getScopeGroupId(), serviceContext.getUserId(),
 				Entry.class.getName(), entry.getEntryId(), false, true, true);
+
 		}
 		else {
 			resourceLocalService.updateResources(
@@ -63,17 +68,28 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 				serviceContext.getGuestPermissions());
 		}
 
-		return super.updateEntry(entry);
+		entry = super.updateEntry(entry);
+
+		// Indexer
+		updateEntryIndexer(entry, false);
+
+		return entry;
 	}
 
 	public Entry delete(Entry entry)
 		throws PortalException, SystemException {
 
+		// Resource
 		resourceLocalService.deleteResource(
 			entry.getCompanyId(), Entry.class.getName(),
 			ResourceConstants.SCOPE_INDIVIDUAL, entry.getEntryId());
 
-		return super.deleteEntry(entry);
+		entry = super.deleteEntry(entry);
+
+		// Indexer
+		updateEntryIndexer(entry, true);
+
+		return entry;
 	}
 
 	public int countByGroupIdGuestbookId(long groupId, long guestbookId)
@@ -137,5 +153,19 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		entry.setModifiedDate(serviceContext.getModifiedDate(now));
 
 		entry.setExpandoBridgeAttributes(serviceContext);
+	}
+
+	private void updateEntryIndexer(Entry entry, boolean delete)
+		throws SearchException {
+
+		Indexer indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(Entry.class.getName());
+
+		if (delete) {
+			indexer.delete(entry);
+		}
+		else {
+			indexer.reindex(entry);
+		}
 	}
 }
