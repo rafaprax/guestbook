@@ -10,6 +10,9 @@ import com.liferay.docs.guestbook.service.base.GuestbookLocalServiceBaseImpl;
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
@@ -66,7 +69,11 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 				serviceContext.getGuestPermissions());
 		}
 
-		return super.updateGuestbook(guestbook);
+		guestbook = super.updateGuestbook(guestbook);
+
+		updateGuestbookIndexer(guestbook, false);
+
+		return guestbook;
 	}
 
 	public Guestbook delete(Guestbook guestbook)
@@ -84,7 +91,11 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 			guestbook.getCompanyId(), Entry.class.getName(),
 			ResourceConstants.SCOPE_INDIVIDUAL, guestbook.getGuestbookId());
 
-		return super.deleteGuestbook(guestbook);
+		guestbook = super.deleteGuestbook(guestbook);
+
+		updateGuestbookIndexer(guestbook, true);
+
+		return guestbook;
 	}
 
 	public int countByGroupId(long groupId)
@@ -138,6 +149,20 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 
 		if (Validator.isNull(guestbook.getName())) {
 			throw new GuestbookNameException();
+		}
+	}
+
+	private void updateGuestbookIndexer(Guestbook guestbook, boolean delete)
+		throws SearchException {
+
+		Indexer indexer =
+			IndexerRegistryUtil.nullSafeGetIndexer(Guestbook.class.getName());
+
+		if (delete) {
+			indexer.delete(guestbook);
+		}
+		else {
+			indexer.reindex(guestbook);
 		}
 	}
 }
