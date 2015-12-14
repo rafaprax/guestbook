@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	version="2.1">
+
+	<display-name>Guestbook Services</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>searchContextUtil</short-name>
+	<uri>http://www.diogopeixoto.com/search-context-util</uri>
+
+	<!-- Entry -->
+	<function>
+		<name>countEntryByGuestbookId</name>
+		<function-class>com.liferay.docs.guestbook.service.EntryServiceUtil</function-class>
+		<function-signature>int countByGroupIdGuestbookId(long,long)</function-signature>
+	</function>
+</taglib>

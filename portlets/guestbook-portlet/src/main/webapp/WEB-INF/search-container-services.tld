@@ -13,4 +13,10 @@
 		<function-class>com.liferay.docs.guestbook.service.searchcontainer.SearchContainerService</function-class>
 		<function-signature>java.lang.Object getObject(javax.portlet.RenderRequest)</function-signature>
 	</function>
+	
+	<function>
+		<name>newEntrySearchContainer</name>
+		<function-class>com.liferay.docs.guestbook.service.searchcontainer.SearchContainerService</function-class>
+		<function-signature>com.liferay.portal.kernel.dao.search.SearchContainer newEntrySearchContainer(javax.portlet.PortletRequest,java.lang.String)</function-signature>
+	</function>
 </taglib>
