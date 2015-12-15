@@ -17,9 +17,13 @@
 
 	<liferay-ui:search-container-row modelVar="guestbook" className="com.liferay.docs.guestbook.model.Guestbook" >
 	
-		<liferay-ui:search-container-column-text property="name" />
+		<portlet:renderURL var="viewGuestbookURL">
+	        <portlet:param name="mvcPath" value="/html/guestbookadmin/view_guestbook.jsp" />
+	        <portlet:param name="guestbookId" value="${guestbook.guestbookId}" />
+		</portlet:renderURL>
+
+		<liferay-ui:search-container-column-text property="name" href="${viewGuestbookURL}" />
 		<liferay-ui:search-container-column-jsp path="/html/guestbookadmin/guestbook_actions.jsp" align="right" />
-	
 	</liferay-ui:search-container-row>
 	<liferay-ui:search-iterator />
 </liferay-ui:search-container>

@@ -69,9 +69,13 @@
 	<liferay-ui:search-container-row
 		className="com.liferay.docs.guestbook.model.Entry" modelVar="entry">
 
-		<liferay-ui:search-container-column-text property="message" />
+		<portlet:renderURL var="viewEntryURL">
+	        <portlet:param name="mvcPath" value="/html/guestbook/view_entry.jsp" />
+	        <portlet:param name="entryId" value="${entry.entryId}" />
+		</portlet:renderURL>
 
-		<liferay-ui:search-container-column-text property="name" />
+		<liferay-ui:search-container-column-text property="message" href="${viewEntryURL}"/>
+		<liferay-ui:search-container-column-text property="name" href="${viewEntryURL}"/>
 
 		<liferay-ui:search-container-column-jsp path="/html/guestbook/guestbook_actions.jsp" align="right" />
 	</liferay-ui:search-container-row>
