@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	version="2.1">
+
+	<display-name>Asset Renderer Util</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>asset-renderer-util</short-name>
+	<uri>http://www.diogopeixoto.com/asset-renderer-util</uri>
+	
+	<function>
+		<name>getEntry</name>
+		<function-class>com.liferay.docs.guestbook.service.asset.AssetRendererUtil</function-class>
+		<function-signature>com.liferay.docs.guestbook.model.Entry getEntry(javax.portlet.RenderRequest)</function-signature>
+	</function>
+	
+	<function>
+		<name>getGuestbook</name>
+		<function-class>com.liferay.docs.guestbook.service.asset.AssetRendererUtil</function-class>
+		<function-signature>com.liferay.docs.guestbook.model.Guestbook getGuestbook(javax.portlet.RenderRequest)</function-signature>
+	</function>
+</taglib>
