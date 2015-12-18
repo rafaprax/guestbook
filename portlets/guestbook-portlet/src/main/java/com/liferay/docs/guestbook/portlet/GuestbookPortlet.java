@@ -1,6 +1,7 @@
 
 package com.liferay.docs.guestbook.portlet;
 
+import com.liferay.docs.guestbook.NoSuchGuestbookException;
 import com.liferay.docs.guestbook.model.Entry;
 import com.liferay.docs.guestbook.model.Guestbook;
 import com.liferay.docs.guestbook.service.EntryLocalServiceUtil;
@@ -11,7 +12,11 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.OrderByComparatorFactory;
+import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.util.PortalUtil;
@@ -34,29 +39,47 @@ public class GuestbookPortlet extends MVCPortlet {
 		throws PortletException, IOException {
 
 		try {
+			Guestbook guestbook = null;
+
 			ServiceContext serviceContext =
 				ServiceContextFactory.getInstance(
 					Guestbook.class.getName(), renderRequest);
 
-			long guestbookId =
-				ParamUtil.getLong(
-					renderRequest, RequestParameterKeys.GUESTBOOK_PARAM_ID);
-
 			List<Guestbook> guestbooks =
 				GuestbookServiceUtil.findByGroupId(serviceContext.getScopeGroupId());
 
+			// Generate Default Guestbook
 			if (guestbooks.size() == 0) {
-				Guestbook guestbook = generateDefaultGuestbook(serviceContext);
-				guestbookId = guestbook.getGuestbookId();
-			}
+				guestbook = generateDefaultGuestbook(serviceContext);
 
-			if (!(guestbookId > 0)) {
-				guestbookId = guestbooks.get(0).getGuestbookId();
 			}
+			else {
+				guestbook =
+					(Guestbook) renderRequest.getAttribute(CustomWebKeys.GUESTBOOK_ATTRIBUTE);
 
+				if (Validator.isNull(guestbook)) {
+					String guestbookName =
+						GuestbookRequestHelper.getGuestbookNameFromRequest(renderRequest);
+
+					if (Validator.isBlank(guestbookName)) {
+						guestbook = guestbooks.get(0);
+					}
+					else {
+						OrderByComparatorFactory orderByComparatorFactory =
+							OrderByComparatorFactoryUtil.getOrderByComparatorFactory();
+						OrderByComparator orderByComparator =
+							orderByComparatorFactory.create(
+								"guestbook", "name", true);
+
+						guestbook =
+							GuestbookServiceUtil.findByGroupIdName(
+								serviceContext.getScopeGroupId(),
+								guestbookName, orderByComparator);
+					}
+				}
+			}
 			renderRequest.setAttribute(
-				RequestParameterKeys.GUESTBOOK_PARAM_ID, guestbookId);
-
+				CustomWebKeys.GUESTBOOK_ATTRIBUTE, guestbook);
 		}
 		catch (Exception e) {
 			throw new PortletException(e);
@@ -72,15 +95,15 @@ public class GuestbookPortlet extends MVCPortlet {
 			ServiceContextFactory.getInstance(Entry.class.getName(), request);
 
 		try {
-			Entry entry = getEntryFromRequest(request);
+			Entry entry = getEntryFromRequest(request, serviceContext);
 
 			EntryServiceUtil.add(entry, serviceContext);
 
 			SessionMessages.add(request, MessageKeys.ENTRY_ADDED);
 
 			response.setRenderParameter(
-				RequestParameterKeys.ENTRY_PARAM_GUESTBOOK_ID,
-				Long.toString(entry.getGuestbookId()));
+				CustomWebKeys.ENTRY_PARAM_GUESTBOOK_NAME,
+				entry.getGuestbook().getName());
 
 		}
 		catch (Exception e) {
@@ -92,17 +115,20 @@ public class GuestbookPortlet extends MVCPortlet {
 
 	}
 
-	public void deleteEntry(ActionRequest request, ActionResponse response) {
+	public void deleteEntry(ActionRequest request, ActionResponse response)
+		throws PortalException, SystemException {
+
+		ServiceContext serviceContext =
+			ServiceContextFactory.getInstance(Entry.class.getName(), request);
 
 		try {
-			Entry entry = getEntryFromRequest(request);
-
-			response.setRenderParameter(
-				RequestParameterKeys.ENTRY_PARAM_GUESTBOOK_ID,
-				Long.toString(entry.getGuestbookId()));
+			Entry entry = getEntryFromRequest(request, serviceContext);
 
 			EntryServiceUtil.delete(entry);
 
+			response.setRenderParameter(
+				CustomWebKeys.ENTRY_PARAM_GUESTBOOK_NAME,
+				entry.getGuestbook().getName());
 		}
 		catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
@@ -125,7 +151,7 @@ public class GuestbookPortlet extends MVCPortlet {
 
 		}
 		catch (Exception e) {
-			SessionErrors.add(request, e.getClass().getName());
+			SessionErrors.add(request, e.getMessage());
 
 			response.setRenderParameter(
 				"mvcPath", PagePaths.GUESTBOOK_PAGE_EDIT);
@@ -141,11 +167,11 @@ public class GuestbookPortlet extends MVCPortlet {
 		return GuestbookServiceUtil.add(guestbook, serviceContext);
 	}
 
-	private Entry getEntryFromRequest(ActionRequest request)
-		throws SystemException {
+	private Entry getEntryFromRequest(
+		ActionRequest request, ServiceContext serviceContext)
+		throws SystemException, NoSuchGuestbookException {
 
-		long entryId =
-			ParamUtil.getLong(request, RequestParameterKeys.ENTRY_PARAM_ID);
+		long entryId = ParamUtil.getLong(request, CustomWebKeys.ENTRY_PARAM_ID);
 
 		Entry entry;
 		if (entryId > 0) {
@@ -156,20 +182,29 @@ public class GuestbookPortlet extends MVCPortlet {
 		}
 
 		String name =
-			ParamUtil.getString(request, RequestParameterKeys.ENTRY_PARAM_NAME);
+			ParamUtil.getString(request, CustomWebKeys.ENTRY_PARAM_NAME);
 		String email =
-			ParamUtil.getString(request, RequestParameterKeys.ENTRY_PARAM_EMAIL);
+			ParamUtil.getString(request, CustomWebKeys.ENTRY_PARAM_EMAIL);
 		String message =
-			ParamUtil.getString(
-				request, RequestParameterKeys.ENTRY_PARAM_MESSAGE);
-		long guestbookId =
-			ParamUtil.getLong(
-				request, RequestParameterKeys.ENTRY_PARAM_GUESTBOOK_ID);
-
+			ParamUtil.getString(request, CustomWebKeys.ENTRY_PARAM_MESSAGE);
 		entry.setName(name);
 		entry.setEmail(email);
 		entry.setMessage(message);
-		entry.setGuestbookId(guestbookId);
+
+		OrderByComparatorFactory orderByComparatorFactory =
+			OrderByComparatorFactoryUtil.getOrderByComparatorFactory();
+		OrderByComparator orderByComparator =
+			orderByComparatorFactory.create("guestbook", "name", true);
+
+		String guestbookName =
+			ParamUtil.getString(
+				request, CustomWebKeys.ENTRY_PARAM_GUESTBOOK_NAME);
+		Guestbook guestbook =
+			GuestbookServiceUtil.findByGroupIdName(
+				serviceContext.getScopeGroupId(), guestbookName,
+				orderByComparator);
+		entry.setGuestbookId(guestbook.getGuestbookId());
+		entry.setGuestbook(guestbook);
 
 		return entry;
 	}
