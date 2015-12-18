@@ -20,6 +20,11 @@
 		<function-signature>java.util.List findByGroupIdGuestbookId(long,long,int,int)</function-signature>
 	</function>
 	<function>
+		<name>findEntriesByGuestbookIdEntryName</name>
+		<function-class>com.liferay.docs.guestbook.service.EntryServiceUtil</function-class>
+		<function-signature>java.util.List findByGroupIdGuestbookIdName(long,long,java.lang.String)</function-signature>
+	</function>
+	<function>
 		<name>findEntryByPrimaryKey</name>
 		<function-class>com.liferay.docs.guestbook.service.EntryServiceUtil</function-class>
 		<function-signature>com.liferay.docs.guestbook.model.Entry findByPrimaryKey(long)</function-signature>
@@ -35,6 +40,11 @@
 		<name>findGuestbookByGroupId</name>
 		<function-class>com.liferay.docs.guestbook.service.GuestbookServiceUtil</function-class>
 		<function-signature>java.util.List findByGroupId(long)</function-signature>
+	</function>
+	<function>
+		<name>findGuestbookByGroupIdName</name>
+		<function-class>com.liferay.docs.guestbook.service.GuestbookServiceUtil</function-class>
+		<function-signature>com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(long,java.lang.String,com.liferay.portal.kernel.util.OrderByComparator)</function-signature>
 	</function>
 	<function>
 		<name>findGuestbookByGroupIdPaginator</name>
