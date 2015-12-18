@@ -63,6 +63,8 @@ public class EntryLocalServiceClpInvoker {
     private String[] _methodParameterTypes63;
     private String _methodName64;
     private String[] _methodParameterTypes64;
+    private String _methodName65;
+    private String[] _methodParameterTypes65;
 
     public EntryLocalServiceClpInvoker() {
         _methodName0 = "addEntry";
@@ -195,6 +197,12 @@ public class EntryLocalServiceClpInvoker {
         _methodName64 = "findByGroupIdGuestbookId";
 
         _methodParameterTypes64 = new String[] { "long", "long", "int", "int" };
+
+        _methodName65 = "findByGroupIdGuestbookIdName";
+
+        _methodParameterTypes65 = new String[] {
+                "long", "long", "java.lang.String"
+            };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -351,6 +359,13 @@ public class EntryLocalServiceClpInvoker {
                 ((Long) arguments[1]).longValue(),
                 ((Integer) arguments[2]).intValue(),
                 ((Integer) arguments[3]).intValue());
+        }
+
+        if (_methodName65.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+            return EntryLocalServiceUtil.findByGroupIdGuestbookIdName(((Long) arguments[0]).longValue(),
+                ((Long) arguments[1]).longValue(),
+                (java.lang.String) arguments[2]);
         }
 
         throw new UnsupportedOperationException();

@@ -73,6 +73,12 @@ public interface GuestbookService extends BaseService, InvokableService {
         long groupId, int start, int end)
         throws com.liferay.portal.kernel.exception.SystemException;
 
+    public com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(
+        long groupId, java.lang.String name,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.docs.guestbook.NoSuchGuestbookException,
+            com.liferay.portal.kernel.exception.SystemException;
+
     public com.liferay.docs.guestbook.model.Guestbook findByPrimaryKey(
         long guestbookId)
         throws com.liferay.portal.kernel.exception.SystemException;

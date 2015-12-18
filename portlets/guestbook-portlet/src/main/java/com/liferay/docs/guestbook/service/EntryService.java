@@ -71,4 +71,8 @@ public interface EntryService extends BaseService, InvokableService {
     public java.util.List<com.liferay.docs.guestbook.model.Entry> findByGroupIdGuestbookId(
         long groupId, long guestbookId, int start, int end)
         throws com.liferay.portal.kernel.exception.SystemException;
+
+    public java.util.List<com.liferay.docs.guestbook.model.Entry> findByGroupIdGuestbookIdName(
+        long groupId, long guestbookId, java.lang.String name)
+        throws com.liferay.portal.kernel.exception.SystemException;
 }

@@ -24,6 +24,8 @@ public class GuestbookServiceClp implements GuestbookService {
     private String[] _methodParameterTypes7;
     private String _methodName8;
     private String[] _methodParameterTypes8;
+    private String _methodName9;
+    private String[] _methodParameterTypes9;
 
     public GuestbookServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -61,9 +63,16 @@ public class GuestbookServiceClp implements GuestbookService {
 
         _methodParameterTypes7 = new String[] { "long", "int", "int" };
 
-        _methodName8 = "findByPrimaryKey";
+        _methodName8 = "findByGroupIdName";
 
-        _methodParameterTypes8 = new String[] { "long" };
+        _methodParameterTypes8 = new String[] {
+                "long", "java.lang.String",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            };
+
+        _methodName9 = "findByPrimaryKey";
+
+        _methodParameterTypes9 = new String[] { "long" };
     }
 
     @Override
@@ -264,14 +273,54 @@ public class GuestbookServiceClp implements GuestbookService {
     }
 
     @Override
+    public com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(
+        long groupId, java.lang.String name,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.docs.guestbook.NoSuchGuestbookException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName8,
+                    _methodParameterTypes8,
+                    new Object[] {
+                        groupId,
+                        
+                    ClpSerializer.translateInput(name),
+                        
+                    ClpSerializer.translateInput(orderByComparator)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.docs.guestbook.NoSuchGuestbookException) {
+                throw (com.liferay.docs.guestbook.NoSuchGuestbookException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.docs.guestbook.model.Guestbook) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
     public com.liferay.docs.guestbook.model.Guestbook findByPrimaryKey(
         long guestbookId)
         throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableService.invokeMethod(_methodName8,
-                    _methodParameterTypes8, new Object[] { guestbookId });
+            returnObj = _invokableService.invokeMethod(_methodName9,
+                    _methodParameterTypes9, new Object[] { guestbookId });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 

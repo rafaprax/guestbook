@@ -23,6 +23,8 @@ public class EntryServiceClpInvoker {
     private String[] _methodParameterTypes43;
     private String _methodName44;
     private String[] _methodParameterTypes44;
+    private String _methodName45;
+    private String[] _methodParameterTypes45;
 
     public EntryServiceClpInvoker() {
         _methodName34 = "getBeanIdentifier";
@@ -57,6 +59,12 @@ public class EntryServiceClpInvoker {
         _methodName44 = "findByGroupIdGuestbookId";
 
         _methodParameterTypes44 = new String[] { "long", "long", "int", "int" };
+
+        _methodName45 = "findByGroupIdGuestbookIdName";
+
+        _methodParameterTypes45 = new String[] {
+                "long", "long", "java.lang.String"
+            };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -101,6 +109,13 @@ public class EntryServiceClpInvoker {
                 ((Long) arguments[1]).longValue(),
                 ((Integer) arguments[2]).intValue(),
                 ((Integer) arguments[3]).intValue());
+        }
+
+        if (_methodName45.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
+            return EntryServiceUtil.findByGroupIdGuestbookIdName(((Long) arguments[0]).longValue(),
+                ((Long) arguments[1]).longValue(),
+                (java.lang.String) arguments[2]);
         }
 
         throw new UnsupportedOperationException();

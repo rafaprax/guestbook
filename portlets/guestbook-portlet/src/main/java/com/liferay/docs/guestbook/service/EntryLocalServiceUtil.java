@@ -355,6 +355,13 @@ public class EntryLocalServiceUtil {
                    .findByGroupIdGuestbookId(groupId, guestbookId, start, end);
     }
 
+    public static java.util.List<com.liferay.docs.guestbook.model.Entry> findByGroupIdGuestbookIdName(
+        long groupId, long guestbookId, java.lang.String name)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService()
+                   .findByGroupIdGuestbookIdName(groupId, guestbookId, name);
+    }
+
     public static void clearService() {
         _service = null;
     }

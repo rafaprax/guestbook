@@ -17,4 +17,9 @@ public interface Entry extends EntryModel, PersistedModel {
      *
      * Never modify this interface directly. Add methods to {@link com.liferay.docs.guestbook.model.impl.EntryImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
      */
+    public com.liferay.docs.guestbook.model.Guestbook getGuestbook()
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    public void setGuestbook(
+        com.liferay.docs.guestbook.model.Guestbook guestbook);
 }

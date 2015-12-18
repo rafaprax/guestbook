@@ -122,4 +122,19 @@ public class EntryServiceSoap {
             throw new RemoteException(e.getMessage());
         }
     }
+
+    public static com.liferay.docs.guestbook.model.EntrySoap[] findByGroupIdGuestbookIdName(
+        long groupId, long guestbookId, java.lang.String name)
+        throws RemoteException {
+        try {
+            java.util.List<com.liferay.docs.guestbook.model.Entry> returnValue = EntryServiceUtil.findByGroupIdGuestbookIdName(groupId,
+                    guestbookId, name);
+
+            return com.liferay.docs.guestbook.model.EntrySoap.toSoapModels(returnValue);
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
 }

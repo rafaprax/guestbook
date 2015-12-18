@@ -58,7 +58,9 @@
 	</mapped-superclass>
 	<entity class="com.liferay.docs.guestbook.model.impl.EntryImpl" name="Entry">
 		<table name="GB_Entry" />
-		<attributes />
+		<attributes>
+			<transient name="guestbook" />
+		</attributes>
 	</entity>
 	<entity class="com.liferay.docs.guestbook.model.impl.GuestbookImpl" name="Guestbook">
 		<table name="GB_Guestbook" />

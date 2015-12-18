@@ -25,6 +25,8 @@ public class GuestbookServiceClpInvoker {
     private String[] _methodParameterTypes44;
     private String _methodName45;
     private String[] _methodParameterTypes45;
+    private String _methodName46;
+    private String[] _methodParameterTypes46;
 
     public GuestbookServiceClpInvoker() {
         _methodName34 = "getBeanIdentifier";
@@ -60,9 +62,16 @@ public class GuestbookServiceClpInvoker {
 
         _methodParameterTypes44 = new String[] { "long", "int", "int" };
 
-        _methodName45 = "findByPrimaryKey";
+        _methodName45 = "findByGroupIdName";
 
-        _methodParameterTypes45 = new String[] { "long" };
+        _methodParameterTypes45 = new String[] {
+                "long", "java.lang.String",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            };
+
+        _methodName46 = "findByPrimaryKey";
+
+        _methodParameterTypes46 = new String[] { "long" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -109,6 +118,13 @@ public class GuestbookServiceClpInvoker {
 
         if (_methodName45.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
+            return GuestbookServiceUtil.findByGroupIdName(((Long) arguments[0]).longValue(),
+                (java.lang.String) arguments[1],
+                (com.liferay.portal.kernel.util.OrderByComparator) arguments[2]);
+        }
+
+        if (_methodName46.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
             return GuestbookServiceUtil.findByPrimaryKey(((Long) arguments[0]).longValue());
         }
 

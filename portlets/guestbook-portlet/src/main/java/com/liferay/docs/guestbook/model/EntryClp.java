@@ -441,6 +441,42 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
     }
 
     @Override
+    public com.liferay.docs.guestbook.model.Guestbook getGuestbook() {
+        try {
+            String methodName = "getGuestbook";
+
+            Class<?>[] parameterTypes = new Class<?>[] {  };
+
+            Object[] parameterValues = new Object[] {  };
+
+            com.liferay.docs.guestbook.model.Guestbook returnObj = (com.liferay.docs.guestbook.model.Guestbook) invokeOnRemoteModel(methodName,
+                    parameterTypes, parameterValues);
+
+            return returnObj;
+        } catch (Exception e) {
+            throw new UnsupportedOperationException(e);
+        }
+    }
+
+    @Override
+    public void setGuestbook(
+        com.liferay.docs.guestbook.model.Guestbook guestbook) {
+        try {
+            String methodName = "setGuestbook";
+
+            Class<?>[] parameterTypes = new Class<?>[] {
+                    com.liferay.docs.guestbook.model.Guestbook.class
+                };
+
+            Object[] parameterValues = new Object[] { guestbook };
+
+            invokeOnRemoteModel(methodName, parameterTypes, parameterValues);
+        } catch (Exception e) {
+            throw new UnsupportedOperationException(e);
+        }
+    }
+
+    @Override
     public StagedModelType getStagedModelType() {
         return new StagedModelType(PortalUtil.getClassNameId(
                 Entry.class.getName()));

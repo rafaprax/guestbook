@@ -63,6 +63,8 @@ public class GuestbookLocalServiceClpInvoker {
     private String[] _methodParameterTypes63;
     private String _methodName64;
     private String[] _methodParameterTypes64;
+    private String _methodName65;
+    private String[] _methodParameterTypes65;
 
     public GuestbookLocalServiceClpInvoker() {
         _methodName0 = "addGuestbook";
@@ -195,6 +197,13 @@ public class GuestbookLocalServiceClpInvoker {
         _methodName64 = "findByGroupId";
 
         _methodParameterTypes64 = new String[] { "long", "int", "int" };
+
+        _methodName65 = "findByGroupIdName";
+
+        _methodParameterTypes65 = new String[] {
+                "long", "java.lang.String",
+                "com.liferay.portal.kernel.util.OrderByComparator"
+            };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -348,6 +357,13 @@ public class GuestbookLocalServiceClpInvoker {
             return GuestbookLocalServiceUtil.findByGroupId(((Long) arguments[0]).longValue(),
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue());
+        }
+
+        if (_methodName65.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+            return GuestbookLocalServiceUtil.findByGroupIdName(((Long) arguments[0]).longValue(),
+                (java.lang.String) arguments[1],
+                (com.liferay.portal.kernel.util.OrderByComparator) arguments[2]);
         }
 
         throw new UnsupportedOperationException();

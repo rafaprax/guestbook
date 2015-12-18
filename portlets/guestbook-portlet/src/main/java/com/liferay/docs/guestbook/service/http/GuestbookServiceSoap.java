@@ -121,6 +121,22 @@ public class GuestbookServiceSoap {
         }
     }
 
+    public static com.liferay.docs.guestbook.model.GuestbookSoap findByGroupIdName(
+        long groupId, java.lang.String name,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws RemoteException {
+        try {
+            com.liferay.docs.guestbook.model.Guestbook returnValue = GuestbookServiceUtil.findByGroupIdName(groupId,
+                    name, orderByComparator);
+
+            return com.liferay.docs.guestbook.model.GuestbookSoap.toSoapModel(returnValue);
+        } catch (Exception e) {
+            _log.error(e, e);
+
+            throw new RemoteException(e.getMessage());
+        }
+    }
+
     public static com.liferay.docs.guestbook.model.GuestbookSoap findByPrimaryKey(
         long guestbookId) throws RemoteException {
         try {

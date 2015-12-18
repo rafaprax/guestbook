@@ -62,6 +62,8 @@ public class EntryLocalServiceClp implements EntryLocalService {
     private String[] _methodParameterTypes26;
     private String _methodName27;
     private String[] _methodParameterTypes27;
+    private String _methodName28;
+    private String[] _methodParameterTypes28;
 
     public EntryLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -196,6 +198,12 @@ public class EntryLocalServiceClp implements EntryLocalService {
         _methodName27 = "findByGroupIdGuestbookId";
 
         _methodParameterTypes27 = new String[] { "long", "long", "int", "int" };
+
+        _methodName28 = "findByGroupIdGuestbookIdName";
+
+        _methodParameterTypes28 = new String[] {
+                "long", "long", "java.lang.String"
+            };
     }
 
     @Override
@@ -966,6 +974,40 @@ public class EntryLocalServiceClp implements EntryLocalService {
             returnObj = _invokableLocalService.invokeMethod(_methodName27,
                     _methodParameterTypes27,
                     new Object[] { groupId, guestbookId, start, end });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<com.liferay.docs.guestbook.model.Entry>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public java.util.List<com.liferay.docs.guestbook.model.Entry> findByGroupIdGuestbookIdName(
+        long groupId, long guestbookId, java.lang.String name)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName28,
+                    _methodParameterTypes28,
+                    new Object[] {
+                        groupId,
+                        
+                    guestbookId,
+                        
+                    ClpSerializer.translateInput(name)
+                    });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 

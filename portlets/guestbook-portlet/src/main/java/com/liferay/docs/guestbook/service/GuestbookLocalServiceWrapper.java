@@ -378,6 +378,16 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
         return _guestbookLocalService.findByGroupId(groupId, start, end);
     }
 
+    @Override
+    public com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(
+        long groupId, java.lang.String name,
+        com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+        throws com.liferay.docs.guestbook.NoSuchGuestbookException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _guestbookLocalService.findByGroupIdName(groupId, name,
+            orderByComparator);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

@@ -516,6 +516,18 @@ public class EntryWrapper implements Entry, ModelWrapper<Entry> {
     }
 
     @Override
+    public com.liferay.docs.guestbook.model.Guestbook getGuestbook()
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _entry.getGuestbook();
+    }
+
+    @Override
+    public void setGuestbook(
+        com.liferay.docs.guestbook.model.Guestbook guestbook) {
+        _entry.setGuestbook(guestbook);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

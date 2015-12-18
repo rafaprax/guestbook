@@ -22,6 +22,8 @@ public class EntryServiceClp implements EntryService {
     private String[] _methodParameterTypes6;
     private String _methodName7;
     private String[] _methodParameterTypes7;
+    private String _methodName8;
+    private String[] _methodParameterTypes8;
 
     public EntryServiceClp(InvokableService invokableService) {
         _invokableService = invokableService;
@@ -58,6 +60,10 @@ public class EntryServiceClp implements EntryService {
         _methodName7 = "findByGroupIdGuestbookId";
 
         _methodParameterTypes7 = new String[] { "long", "long", "int", "int" };
+
+        _methodName8 = "findByGroupIdGuestbookIdName";
+
+        _methodParameterTypes8 = new String[] { "long", "long", "java.lang.String" };
     }
 
     @Override
@@ -240,6 +246,40 @@ public class EntryServiceClp implements EntryService {
             returnObj = _invokableService.invokeMethod(_methodName7,
                     _methodParameterTypes7,
                     new Object[] { groupId, guestbookId, start, end });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<com.liferay.docs.guestbook.model.Entry>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public java.util.List<com.liferay.docs.guestbook.model.Entry> findByGroupIdGuestbookIdName(
+        long groupId, long guestbookId, java.lang.String name)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableService.invokeMethod(_methodName8,
+                    _methodParameterTypes8,
+                    new Object[] {
+                        groupId,
+                        
+                    guestbookId,
+                        
+                    ClpSerializer.translateInput(name)
+                    });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 
