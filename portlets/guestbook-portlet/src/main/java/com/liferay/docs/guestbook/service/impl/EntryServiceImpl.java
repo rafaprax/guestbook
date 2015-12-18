@@ -61,4 +61,12 @@ public class EntryServiceImpl extends EntryServiceBaseImpl {
 		return entryLocalService.findByGroupIdGuestbookId(
 			groupId, guestbookId, start, end);
 	}
+
+	public List<Entry> findByGroupIdGuestbookIdName(
+		long groupId, long guestbookId, String name)
+		throws SystemException {
+
+		return entryLocalService.findByGroupIdGuestbookIdName(
+			groupId, guestbookId, name);
+	}
 }

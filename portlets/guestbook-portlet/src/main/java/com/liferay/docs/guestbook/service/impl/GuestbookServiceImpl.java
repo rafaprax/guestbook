@@ -1,10 +1,12 @@
 
 package com.liferay.docs.guestbook.service.impl;
 
+import com.liferay.docs.guestbook.NoSuchGuestbookException;
 import com.liferay.docs.guestbook.model.Guestbook;
 import com.liferay.docs.guestbook.service.base.GuestbookServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.service.ServiceContext;
 
 import java.util.List;
@@ -58,6 +60,14 @@ public class GuestbookServiceImpl extends GuestbookServiceBaseImpl {
 		throws SystemException {
 
 		return guestbookLocalService.findByGroupId(groupId, start, end);
+	}
+
+	public Guestbook findByGroupIdName(
+		long groupId, String name, OrderByComparator orderByComparator)
+		throws SystemException, NoSuchGuestbookException {
+
+		return guestbookLocalService.findByGroupIdName(
+			groupId, name, orderByComparator);
 	}
 
 	public Guestbook findByPrimaryKey(long guestbookId)

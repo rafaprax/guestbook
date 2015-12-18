@@ -138,6 +138,13 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		return entryPersistence.findByG_G(groupId, guestbookId, start, end);
 	}
 
+	public List<Entry> findByGroupIdGuestbookIdName(
+		long groupId, long guestbookId, String name)
+		throws SystemException {
+
+		return entryPersistence.findByG_G_N(groupId, guestbookId, name);
+	}
+
 	private void validate(Entry entry)
 		throws PortalException, SystemException {
 

@@ -2,8 +2,10 @@
 package com.liferay.docs.guestbook.service.impl;
 
 import com.liferay.docs.guestbook.GuestbookNameException;
+import com.liferay.docs.guestbook.NoSuchGuestbookException;
 import com.liferay.docs.guestbook.model.Entry;
 import com.liferay.docs.guestbook.model.Guestbook;
+import com.liferay.docs.guestbook.portlet.MessageKeys;
 import com.liferay.docs.guestbook.service.EntryLocalServiceUtil;
 import com.liferay.docs.guestbook.service.EntryServiceUtil;
 import com.liferay.docs.guestbook.service.base.GuestbookLocalServiceBaseImpl;
@@ -14,6 +16,7 @@ import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.util.ContentTypes;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
@@ -147,6 +150,14 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 		return guestbookPersistence.findByGroupId(groupId, start, end);
 	}
 
+	public Guestbook findByGroupIdName(
+		long groupId, String name, OrderByComparator orderByComparator)
+		throws SystemException, NoSuchGuestbookException {
+
+		return guestbookPersistence.fetchByG_N_First(
+			groupId, name, orderByComparator);
+	}
+
 	private void setAttributes(
 		Guestbook guestbook, ServiceContext serviceContext)
 		throws SystemException, NoSuchUserException {
@@ -176,7 +187,15 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 	}
 
 	private void validate(Guestbook guestbook)
-		throws PortalException {
+		throws PortalException, SystemException {
+
+		List<Guestbook> guestbooks =
+			guestbookPersistence.findByG_N(
+				guestbook.getGroupId(), guestbook.getName());
+
+		if (!guestbooks.isEmpty()) {
+			throw new PortalException(MessageKeys.GUESTBOOK_EXISTING_NAME);
+		}
 
 		if (Validator.isNull(guestbook.getName())) {
 			throw new GuestbookNameException();
