@@ -26,7 +26,7 @@
 		<div id="counterContainer">
 			<p><span id="counter"></span> character(s) remaining</p>
 		</div>
-		<aui:input name='guestbookId' type='hidden' value='${param.guestbookId}' />
+		<aui:input name='guestbookName' type='hidden' value='${param.guestbookName}' />
 		<aui:input name="entryId" type="hidden" value="${entry.entryId}" />
 	</aui:fieldset>
 

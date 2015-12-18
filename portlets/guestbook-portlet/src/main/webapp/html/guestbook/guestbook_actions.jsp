@@ -7,7 +7,7 @@
 	<c:if test="${permissionChecker:canPerfomActionEntry(permissionChecker,entry,'UPDATE')}">
 		
 		<portlet:renderURL var="editURL">
-			<portlet:param name="entryId" value="${entry.entryId }" />
+			<portlet:param name="entryId" value="${entry.entryId}" />
 			<portlet:param name="mvcPath" value="/html/guestbook/edit_entry.jsp" />
 		</portlet:renderURL>
 

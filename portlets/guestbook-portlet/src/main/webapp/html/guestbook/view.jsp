@@ -1,7 +1,6 @@
 <%@include file="/html/init.jsp"%>
 
-<c:set var="guestbookId" value="${guestbookId}" scope="request" />
-<c:set var="guestbookSelected" value="${guestbook:findGuestbookByPrimaryKey(guestbookId)}"/>
+<c:set var="guestbook" value="${guestbook}" scope="request" />
 
 <liferay-portlet:renderURL varImpl="searchURL">
 	<portlet:param name="mvcPath" value="/html/guestbook/view_search.jsp" />
@@ -21,20 +20,20 @@
 
 <aui:nav cssClass="nav-tabs">
 
-	<c:forEach items="${guestbook:findGuestbookByGroupId(scopeGroupId)}" var="guestbook">
+	<c:forEach items="${guestbook:findGuestbookByGroupId(scopeGroupId)}" var="curGuestbook">
 		<c:if test="${permissionChecker:canPerfomActionGuestbook(permissionChecker,guestbook,'VIEW')}">
 			<portlet:renderURL var="viewPageURL">
 				<portlet:param name="mvcPath" value="/html/guestbook/view.jsp" />
-				<portlet:param name="guestbookId" value="${guestbook.guestbookId}" />
+				<portlet:param name="guestbookName" value="${curGuestbook.name}" />
 			</portlet:renderURL>
 			
 			<c:choose>
-				<c:when test="${guestbook.guestbookId == guestbookId}">
-					<aui:nav-item cssClass="active" href="${viewPageURL}" label="${guestbook.name}" />
+				<c:when test="${curGuestbook == guestbook}">
+					<aui:nav-item cssClass="active" href="${viewPageURL}" label="${curGuestbook.name}" />
 				</c:when>
 				
 				<c:otherwise>
-					<aui:nav-item href="${viewPageURL}" label="${guestbook.name}" />
+					<aui:nav-item href="${viewPageURL}" label="${curGuestbook.name}" />
 				</c:otherwise>
 			</c:choose>
 		</c:if>
@@ -49,13 +48,13 @@
 
 	<portlet:renderURL var="addEntryURL">
 		<portlet:param name="mvcPath" value="/html/guestbook/edit_entry.jsp" />
-		<portlet:param name="guestbookId" value="${guestbookId}" />
+		<portlet:param name="guestbookName" value="${guestbook.name}" />
 	</portlet:renderURL>
 
 	<c:if test="${permissionChecker:canAddGuestbookModel(permissionChecker,scopeGroupId,'ADD_GUESTBOOK')}">
 		<aui:button onClick="${addGuestbookURL}" value="Add Guestbook" />
 	</c:if>
-	<c:if test="${permissionChecker:canPerfomActionGuestbook(permissionChecker,guestbookSelected,'ADD_ENTRY')}">
+	<c:if test="${permissionChecker:canPerfomActionGuestbook(permissionChecker,guestbook,'ADD_ENTRY')}">
 		<aui:button onClick="${addEntryURL}" value="Add Entry"/>
 	</c:if>
 
@@ -63,15 +62,16 @@
 
 <liferay-ui:search-container>
 	<liferay-ui:search-container-results
-		results="${guestbook:findEntryByGuestbookId(scopeGroupId, guestbookId, searchContainer.start, searchContainer.end)}"
-		total="${guestbook:countEntryByGuestbookId(scopeGroupId, guestbookId)}"/>
+		results="${guestbook:findEntryByGuestbookId(scopeGroupId, guestbook.guestbookId, searchContainer.start, searchContainer.end)}"
+		total="${guestbook:countEntryByGuestbookId(scopeGroupId, guestbook.guestbookId)}"/>
 
 	<liferay-ui:search-container-row
 		className="com.liferay.docs.guestbook.model.Entry" modelVar="entry">
 
 		<portlet:renderURL var="viewEntryURL">
 	        <portlet:param name="mvcPath" value="/html/guestbook/view_entry.jsp" />
-	        <portlet:param name="entryId" value="${entry.entryId}" />
+	        <portlet:param name="name" value="${entry.name}" />
+            <portlet:param name="guestbookName" value="${guestbook.name}" />
 		</portlet:renderURL>
 
 		<liferay-ui:search-container-column-text property="message" href="${viewEntryURL}"/>

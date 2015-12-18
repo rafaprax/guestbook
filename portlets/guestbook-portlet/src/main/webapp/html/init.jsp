@@ -9,6 +9,7 @@
 <%@ taglib uri="http://www.diogopeixoto.com/asset-renderer-util" prefix="assetRendererUtil" %>
 <%@ taglib uri="http://www.diogopeixoto.com/classname-services" prefix="classnameServices" %>
 <%@ taglib uri="http://www.diogopeixoto.com/guestbook-services" prefix="guestbook" %>
+<%@ taglib uri="http://www.diogopeixoto.com/order-by-comparator-util" prefix="orderByComparator" %>
 <%@ taglib uri="http://www.diogopeixoto.com/permission-checker-services" prefix="permissionChecker" %>
 <%@ taglib uri="http://www.diogopeixoto.com/search-container-services" prefix="searchContainer" %>
 <%@ taglib uri="http://www.diogopeixoto.com/search-context-util" prefix="searchContextUtil" %>

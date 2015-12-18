@@ -8,6 +8,7 @@
 
 <aui:form action="${addGuestbookURL}" name="guestbook-form">
 
+	<liferay-ui:error key="guestbook-error-existing-name" message="guestbook-error-existing-name" />
 	<aui:fieldset>
 		<aui:input name="name" label="name"/>
 	</aui:fieldset>
