@@ -19,16 +19,22 @@
 
 		<!-- Other fields -->
 		<column name="name" type="String" />
-		
+
 		<finder name="GroupId" return-type="Collection">
-			<finder-column name="groupId"/>
+			<finder-column name="groupId" />
 		</finder>
-		
+
+		<finder name="G_N" return-type="Collection">
+			<finder-column name="groupId"></finder-column>
+			<finder-column name="name"></finder-column>
+		</finder>
+
 		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" />
 		<reference package-path="com.liferay.portlet.asset" entity="AssetLink" />
 	</entity>
 
-	<entity name="Entry" local-service="true" remote-service="true" uuid="true">
+	<entity name="Entry" local-service="true" remote-service="true"
+		uuid="true">
 		<!-- PK fields -->
 		<column name="entryId" type="long" primary="true" />
 
@@ -47,16 +53,22 @@
 
 		<!-- Relationship -->
 		<column name="guestbookId" type="long" />
-		
+
 		<finder name="G_G" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="guestbookId" />
+		</finder>
+
+		<finder name="G_G_N" return-type="Collection">
 			<finder-column name="groupId"/>
 			<finder-column name="guestbookId"/>
+			<finder-column name="name"/>
 		</finder>
-		
+
 		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" />
 		<reference package-path="com.liferay.portlet.asset" entity="AssetLink" />
 	</entity>
-	
+
 	<exceptions>
 		<exception>GuestbookName</exception>
 		<exception>EntryEmail</exception>
