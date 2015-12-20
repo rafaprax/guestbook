@@ -35,6 +35,11 @@
 			<finder-column name="name"></finder-column>
 		</finder>
 
+		<finder name="G_S" return-type="Collection">
+			<finder-column name="groupId"/>
+			<finder-column name="status"/>
+		</finder>
+
 		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" />
 		<reference package-path="com.liferay.portlet.asset" entity="AssetLink" />
 	</entity>
@@ -72,9 +77,15 @@
 		</finder>
 
 		<finder name="G_G_N" return-type="Collection">
-			<finder-column name="groupId"/>
-			<finder-column name="guestbookId"/>
-			<finder-column name="name"/>
+			<finder-column name="groupId" />
+			<finder-column name="guestbookId" />
+			<finder-column name="name" />
+		</finder>
+
+		<finder name="G_G_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="guestbookId" />
+			<finder-column name="status" />
 		</finder>
 
 		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" />
