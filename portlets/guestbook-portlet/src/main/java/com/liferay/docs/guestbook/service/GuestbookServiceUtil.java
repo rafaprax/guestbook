@@ -83,6 +83,12 @@ public class GuestbookServiceUtil {
         return getService().findByGroupId(groupId, start, end);
     }
 
+    public static java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
+        long groupId, int status)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().findByGroupId(groupId, status);
+    }
+
     public static com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(
         long groupId, java.lang.String name,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)

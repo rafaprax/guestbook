@@ -12,6 +12,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
@@ -61,9 +62,13 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
             { "userName", Types.VARCHAR },
             { "createDate", Types.TIMESTAMP },
             { "modifiedDate", Types.TIMESTAMP },
+            { "status", Types.INTEGER },
+            { "statusByUserId", Types.BIGINT },
+            { "statusByUserName", Types.VARCHAR },
+            { "statusDate", Types.TIMESTAMP },
             { "name", Types.VARCHAR }
         };
-    public static final String TABLE_SQL_CREATE = "create table GB_Guestbook (uuid_ VARCHAR(75) null,guestbookId LONG not null primary key,companyId LONG,groupId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null)";
+    public static final String TABLE_SQL_CREATE = "create table GB_Guestbook (uuid_ VARCHAR(75) null,guestbookId LONG not null primary key,companyId LONG,groupId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,name VARCHAR(75) null)";
     public static final String TABLE_SQL_DROP = "drop table GB_Guestbook";
     public static final String ORDER_BY_JPQL = " ORDER BY guestbook.guestbookId ASC";
     public static final String ORDER_BY_SQL = " ORDER BY GB_Guestbook.guestbookId ASC";
@@ -82,8 +87,9 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
     public static long COMPANYID_COLUMN_BITMASK = 1L;
     public static long GROUPID_COLUMN_BITMASK = 2L;
     public static long NAME_COLUMN_BITMASK = 4L;
-    public static long UUID_COLUMN_BITMASK = 8L;
-    public static long GUESTBOOKID_COLUMN_BITMASK = 16L;
+    public static long STATUS_COLUMN_BITMASK = 8L;
+    public static long UUID_COLUMN_BITMASK = 16L;
+    public static long GUESTBOOKID_COLUMN_BITMASK = 32L;
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
                 "lock.expiration.time.com.liferay.docs.guestbook.model.Guestbook"));
     private static ClassLoader _classLoader = Guestbook.class.getClassLoader();
@@ -104,6 +110,13 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
     private String _userName;
     private Date _createDate;
     private Date _modifiedDate;
+    private int _status;
+    private int _originalStatus;
+    private boolean _setOriginalStatus;
+    private long _statusByUserId;
+    private String _statusByUserUuid;
+    private String _statusByUserName;
+    private Date _statusDate;
     private String _name;
     private String _originalName;
     private long _columnBitmask;
@@ -133,6 +146,10 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
         model.setUserName(soapModel.getUserName());
         model.setCreateDate(soapModel.getCreateDate());
         model.setModifiedDate(soapModel.getModifiedDate());
+        model.setStatus(soapModel.getStatus());
+        model.setStatusByUserId(soapModel.getStatusByUserId());
+        model.setStatusByUserName(soapModel.getStatusByUserName());
+        model.setStatusDate(soapModel.getStatusDate());
         model.setName(soapModel.getName());
 
         return model;
@@ -200,6 +217,10 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
         attributes.put("userName", getUserName());
         attributes.put("createDate", getCreateDate());
         attributes.put("modifiedDate", getModifiedDate());
+        attributes.put("status", getStatus());
+        attributes.put("statusByUserId", getStatusByUserId());
+        attributes.put("statusByUserName", getStatusByUserName());
+        attributes.put("statusDate", getStatusDate());
         attributes.put("name", getName());
 
         return attributes;
@@ -253,6 +274,30 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 
         if (modifiedDate != null) {
             setModifiedDate(modifiedDate);
+        }
+
+        Integer status = (Integer) attributes.get("status");
+
+        if (status != null) {
+            setStatus(status);
+        }
+
+        Long statusByUserId = (Long) attributes.get("statusByUserId");
+
+        if (statusByUserId != null) {
+            setStatusByUserId(statusByUserId);
+        }
+
+        String statusByUserName = (String) attributes.get("statusByUserName");
+
+        if (statusByUserName != null) {
+            setStatusByUserName(statusByUserName);
+        }
+
+        Date statusDate = (Date) attributes.get("statusDate");
+
+        if (statusDate != null) {
+            setStatusDate(statusDate);
         }
 
         String name = (String) attributes.get("name");
@@ -402,6 +447,77 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 
     @JSON
     @Override
+    public int getStatus() {
+        return _status;
+    }
+
+    @Override
+    public void setStatus(int status) {
+        _columnBitmask |= STATUS_COLUMN_BITMASK;
+
+        if (!_setOriginalStatus) {
+            _setOriginalStatus = true;
+
+            _originalStatus = _status;
+        }
+
+        _status = status;
+    }
+
+    public int getOriginalStatus() {
+        return _originalStatus;
+    }
+
+    @JSON
+    @Override
+    public long getStatusByUserId() {
+        return _statusByUserId;
+    }
+
+    @Override
+    public void setStatusByUserId(long statusByUserId) {
+        _statusByUserId = statusByUserId;
+    }
+
+    @Override
+    public String getStatusByUserUuid() throws SystemException {
+        return PortalUtil.getUserValue(getStatusByUserId(), "uuid",
+            _statusByUserUuid);
+    }
+
+    @Override
+    public void setStatusByUserUuid(String statusByUserUuid) {
+        _statusByUserUuid = statusByUserUuid;
+    }
+
+    @JSON
+    @Override
+    public String getStatusByUserName() {
+        if (_statusByUserName == null) {
+            return StringPool.BLANK;
+        } else {
+            return _statusByUserName;
+        }
+    }
+
+    @Override
+    public void setStatusByUserName(String statusByUserName) {
+        _statusByUserName = statusByUserName;
+    }
+
+    @JSON
+    @Override
+    public Date getStatusDate() {
+        return _statusDate;
+    }
+
+    @Override
+    public void setStatusDate(Date statusDate) {
+        _statusDate = statusDate;
+    }
+
+    @JSON
+    @Override
     public String getName() {
         if (_name == null) {
             return StringPool.BLANK;
@@ -429,6 +545,86 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
     public StagedModelType getStagedModelType() {
         return new StagedModelType(PortalUtil.getClassNameId(
                 Guestbook.class.getName()));
+    }
+
+    /**
+     * @deprecated As of 6.1.0, replaced by {@link #isApproved}
+     */
+    @Override
+    public boolean getApproved() {
+        return isApproved();
+    }
+
+    @Override
+    public boolean isApproved() {
+        if (getStatus() == WorkflowConstants.STATUS_APPROVED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isDenied() {
+        if (getStatus() == WorkflowConstants.STATUS_DENIED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isDraft() {
+        if (getStatus() == WorkflowConstants.STATUS_DRAFT) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isExpired() {
+        if (getStatus() == WorkflowConstants.STATUS_EXPIRED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isInactive() {
+        if (getStatus() == WorkflowConstants.STATUS_INACTIVE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isIncomplete() {
+        if (getStatus() == WorkflowConstants.STATUS_INCOMPLETE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isPending() {
+        if (getStatus() == WorkflowConstants.STATUS_PENDING) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isScheduled() {
+        if (getStatus() == WorkflowConstants.STATUS_SCHEDULED) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public long getColumnBitmask() {
@@ -470,6 +666,10 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
         guestbookImpl.setUserName(getUserName());
         guestbookImpl.setCreateDate(getCreateDate());
         guestbookImpl.setModifiedDate(getModifiedDate());
+        guestbookImpl.setStatus(getStatus());
+        guestbookImpl.setStatusByUserId(getStatusByUserId());
+        guestbookImpl.setStatusByUserName(getStatusByUserName());
+        guestbookImpl.setStatusDate(getStatusDate());
         guestbookImpl.setName(getName());
 
         guestbookImpl.resetOriginalValues();
@@ -530,6 +730,10 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 
         guestbookModelImpl._setOriginalGroupId = false;
 
+        guestbookModelImpl._originalStatus = guestbookModelImpl._status;
+
+        guestbookModelImpl._setOriginalStatus = false;
+
         guestbookModelImpl._originalName = guestbookModelImpl._name;
 
         guestbookModelImpl._columnBitmask = 0;
@@ -579,6 +783,26 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
             guestbookCacheModel.modifiedDate = Long.MIN_VALUE;
         }
 
+        guestbookCacheModel.status = getStatus();
+
+        guestbookCacheModel.statusByUserId = getStatusByUserId();
+
+        guestbookCacheModel.statusByUserName = getStatusByUserName();
+
+        String statusByUserName = guestbookCacheModel.statusByUserName;
+
+        if ((statusByUserName != null) && (statusByUserName.length() == 0)) {
+            guestbookCacheModel.statusByUserName = null;
+        }
+
+        Date statusDate = getStatusDate();
+
+        if (statusDate != null) {
+            guestbookCacheModel.statusDate = statusDate.getTime();
+        } else {
+            guestbookCacheModel.statusDate = Long.MIN_VALUE;
+        }
+
         guestbookCacheModel.name = getName();
 
         String name = guestbookCacheModel.name;
@@ -592,7 +816,7 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(19);
+        StringBundler sb = new StringBundler(27);
 
         sb.append("{uuid=");
         sb.append(getUuid());
@@ -610,6 +834,14 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
         sb.append(getCreateDate());
         sb.append(", modifiedDate=");
         sb.append(getModifiedDate());
+        sb.append(", status=");
+        sb.append(getStatus());
+        sb.append(", statusByUserId=");
+        sb.append(getStatusByUserId());
+        sb.append(", statusByUserName=");
+        sb.append(getStatusByUserName());
+        sb.append(", statusDate=");
+        sb.append(getStatusDate());
         sb.append(", name=");
         sb.append(getName());
         sb.append("}");
@@ -619,7 +851,7 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
 
     @Override
     public String toXmlString() {
-        StringBundler sb = new StringBundler(31);
+        StringBundler sb = new StringBundler(43);
 
         sb.append("<model><model-name>");
         sb.append("com.liferay.docs.guestbook.model.Guestbook");
@@ -656,6 +888,22 @@ public class GuestbookModelImpl extends BaseModelImpl<Guestbook>
         sb.append(
             "<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
         sb.append(getModifiedDate());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>status</column-name><column-value><![CDATA[");
+        sb.append(getStatus());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>statusByUserId</column-name><column-value><![CDATA[");
+        sb.append(getStatusByUserId());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>statusByUserName</column-name><column-value><![CDATA[");
+        sb.append(getStatusByUserName());
+        sb.append("]]></column-value></column>");
+        sb.append(
+            "<column><column-name>statusDate</column-name><column-value><![CDATA[");
+        sb.append(getStatusDate());
         sb.append("]]></column-value></column>");
         sb.append(
             "<column><column-name>name</column-name><column-value><![CDATA[");

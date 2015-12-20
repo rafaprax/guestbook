@@ -82,6 +82,13 @@ public class GuestbookServiceWrapper implements GuestbookService,
     }
 
     @Override
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
+        long groupId, int status)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _guestbookService.findByGroupId(groupId, status);
+    }
+
+    @Override
     public com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(
         long groupId, java.lang.String name,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)

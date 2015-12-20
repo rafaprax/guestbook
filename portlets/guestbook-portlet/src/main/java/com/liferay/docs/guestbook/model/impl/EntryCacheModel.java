@@ -29,6 +29,10 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
     public String userName;
     public long createDate;
     public long modifiedDate;
+    public int status;
+    public long statusByUserId;
+    public String statusByUserName;
+    public long statusDate;
     public String name;
     public String email;
     public String message;
@@ -36,7 +40,7 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 
     @Override
     public String toString() {
-        StringBundler sb = new StringBundler(25);
+        StringBundler sb = new StringBundler(33);
 
         sb.append("{uuid=");
         sb.append(uuid);
@@ -54,6 +58,14 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
         sb.append(createDate);
         sb.append(", modifiedDate=");
         sb.append(modifiedDate);
+        sb.append(", status=");
+        sb.append(status);
+        sb.append(", statusByUserId=");
+        sb.append(statusByUserId);
+        sb.append(", statusByUserName=");
+        sb.append(statusByUserName);
+        sb.append(", statusDate=");
+        sb.append(statusDate);
         sb.append(", name=");
         sb.append(name);
         sb.append(", email=");
@@ -100,6 +112,21 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
             entryImpl.setModifiedDate(new Date(modifiedDate));
         }
 
+        entryImpl.setStatus(status);
+        entryImpl.setStatusByUserId(statusByUserId);
+
+        if (statusByUserName == null) {
+            entryImpl.setStatusByUserName(StringPool.BLANK);
+        } else {
+            entryImpl.setStatusByUserName(statusByUserName);
+        }
+
+        if (statusDate == Long.MIN_VALUE) {
+            entryImpl.setStatusDate(null);
+        } else {
+            entryImpl.setStatusDate(new Date(statusDate));
+        }
+
         if (name == null) {
             entryImpl.setName(StringPool.BLANK);
         } else {
@@ -135,6 +162,10 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
         userName = objectInput.readUTF();
         createDate = objectInput.readLong();
         modifiedDate = objectInput.readLong();
+        status = objectInput.readInt();
+        statusByUserId = objectInput.readLong();
+        statusByUserName = objectInput.readUTF();
+        statusDate = objectInput.readLong();
         name = objectInput.readUTF();
         email = objectInput.readUTF();
         message = objectInput.readUTF();
@@ -163,6 +194,16 @@ public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 
         objectOutput.writeLong(createDate);
         objectOutput.writeLong(modifiedDate);
+        objectOutput.writeInt(status);
+        objectOutput.writeLong(statusByUserId);
+
+        if (statusByUserName == null) {
+            objectOutput.writeUTF(StringPool.BLANK);
+        } else {
+            objectOutput.writeUTF(statusByUserName);
+        }
+
+        objectOutput.writeLong(statusDate);
 
         if (name == null) {
             objectOutput.writeUTF(StringPool.BLANK);

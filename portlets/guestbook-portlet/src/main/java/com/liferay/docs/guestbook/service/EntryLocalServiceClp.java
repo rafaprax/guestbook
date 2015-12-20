@@ -64,6 +64,8 @@ public class EntryLocalServiceClp implements EntryLocalService {
     private String[] _methodParameterTypes27;
     private String _methodName28;
     private String[] _methodParameterTypes28;
+    private String _methodName29;
+    private String[] _methodParameterTypes29;
 
     public EntryLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -187,21 +189,28 @@ public class EntryLocalServiceClp implements EntryLocalService {
                 "com.liferay.docs.guestbook.model.Entry"
             };
 
-        _methodName25 = "countByGroupIdGuestbookId";
+        _methodName25 = "updateStatus";
 
-        _methodParameterTypes25 = new String[] { "long", "long" };
+        _methodParameterTypes25 = new String[] {
+                "long", "long", "int",
+                "com.liferay.portal.service.ServiceContext"
+            };
 
-        _methodName26 = "findByGroupIdGuestbookId";
+        _methodName26 = "countByGroupIdGuestbookId";
 
         _methodParameterTypes26 = new String[] { "long", "long" };
 
         _methodName27 = "findByGroupIdGuestbookId";
 
-        _methodParameterTypes27 = new String[] { "long", "long", "int", "int" };
+        _methodParameterTypes27 = new String[] { "long", "long" };
 
-        _methodName28 = "findByGroupIdGuestbookIdName";
+        _methodName28 = "findByGroupIdGuestbookId";
 
-        _methodParameterTypes28 = new String[] {
+        _methodParameterTypes28 = new String[] { "long", "long", "int", "int" };
+
+        _methodName29 = "findByGroupIdGuestbookIdName";
+
+        _methodParameterTypes29 = new String[] {
                 "long", "long", "java.lang.String"
             };
     }
@@ -910,13 +919,55 @@ public class EntryLocalServiceClp implements EntryLocalService {
     }
 
     @Override
-    public int countByGroupIdGuestbookId(long groupId, long guestbookId)
-        throws com.liferay.portal.kernel.exception.SystemException {
+    public com.liferay.docs.guestbook.model.Entry updateStatus(long userId,
+        long entryId, int status,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
         try {
             returnObj = _invokableLocalService.invokeMethod(_methodName25,
                     _methodParameterTypes25,
+                    new Object[] {
+                        userId,
+                        
+                    entryId,
+                        
+                    status,
+                        
+                    ClpSerializer.translateInput(serviceContext)
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.liferay.docs.guestbook.model.Entry) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public int countByGroupIdGuestbookId(long groupId, long guestbookId)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName26,
+                    _methodParameterTypes26,
                     new Object[] { groupId, guestbookId });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
@@ -943,8 +994,8 @@ public class EntryLocalServiceClp implements EntryLocalService {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName26,
-                    _methodParameterTypes26,
+            returnObj = _invokableLocalService.invokeMethod(_methodName27,
+                    _methodParameterTypes27,
                     new Object[] { groupId, guestbookId });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
@@ -971,8 +1022,8 @@ public class EntryLocalServiceClp implements EntryLocalService {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName27,
-                    _methodParameterTypes27,
+            returnObj = _invokableLocalService.invokeMethod(_methodName28,
+                    _methodParameterTypes28,
                     new Object[] { groupId, guestbookId, start, end });
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
@@ -999,8 +1050,8 @@ public class EntryLocalServiceClp implements EntryLocalService {
         Object returnObj = null;
 
         try {
-            returnObj = _invokableLocalService.invokeMethod(_methodName28,
-                    _methodParameterTypes28,
+            returnObj = _invokableLocalService.invokeMethod(_methodName29,
+                    _methodParameterTypes29,
                     new Object[] {
                         groupId,
                         

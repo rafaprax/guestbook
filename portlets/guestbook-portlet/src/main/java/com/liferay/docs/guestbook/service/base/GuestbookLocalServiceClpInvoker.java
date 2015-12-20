@@ -65,6 +65,10 @@ public class GuestbookLocalServiceClpInvoker {
     private String[] _methodParameterTypes64;
     private String _methodName65;
     private String[] _methodParameterTypes65;
+    private String _methodName66;
+    private String[] _methodParameterTypes66;
+    private String _methodName67;
+    private String[] _methodParameterTypes67;
 
     public GuestbookLocalServiceClpInvoker() {
         _methodName0 = "addGuestbook";
@@ -186,21 +190,32 @@ public class GuestbookLocalServiceClpInvoker {
                 "com.liferay.docs.guestbook.model.Guestbook"
             };
 
-        _methodName62 = "countByGroupId";
+        _methodName62 = "updateStatus";
 
-        _methodParameterTypes62 = new String[] { "long" };
+        _methodParameterTypes62 = new String[] {
+                "long", "long", "int",
+                "com.liferay.portal.service.ServiceContext"
+            };
 
-        _methodName63 = "findByGroupId";
+        _methodName63 = "countByGroupId";
 
         _methodParameterTypes63 = new String[] { "long" };
 
         _methodName64 = "findByGroupId";
 
-        _methodParameterTypes64 = new String[] { "long", "int", "int" };
+        _methodParameterTypes64 = new String[] { "long" };
 
-        _methodName65 = "findByGroupIdName";
+        _methodName65 = "findByGroupId";
 
-        _methodParameterTypes65 = new String[] {
+        _methodParameterTypes65 = new String[] { "long", "int", "int" };
+
+        _methodName66 = "findByGroupIdStatus";
+
+        _methodParameterTypes66 = new String[] { "long", "int" };
+
+        _methodName67 = "findByGroupIdName";
+
+        _methodParameterTypes67 = new String[] {
                 "long", "java.lang.String",
                 "com.liferay.portal.kernel.util.OrderByComparator"
             };
@@ -344,23 +359,37 @@ public class GuestbookLocalServiceClpInvoker {
 
         if (_methodName62.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
-            return GuestbookLocalServiceUtil.countByGroupId(((Long) arguments[0]).longValue());
+            return GuestbookLocalServiceUtil.updateStatus(((Long) arguments[0]).longValue(),
+                ((Long) arguments[1]).longValue(),
+                ((Integer) arguments[2]).intValue(),
+                (com.liferay.portal.service.ServiceContext) arguments[3]);
         }
 
         if (_methodName63.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
-            return GuestbookLocalServiceUtil.findByGroupId(((Long) arguments[0]).longValue());
+            return GuestbookLocalServiceUtil.countByGroupId(((Long) arguments[0]).longValue());
         }
 
         if (_methodName64.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+            return GuestbookLocalServiceUtil.findByGroupId(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName65.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
             return GuestbookLocalServiceUtil.findByGroupId(((Long) arguments[0]).longValue(),
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue());
         }
 
-        if (_methodName65.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+        if (_methodName66.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+            return GuestbookLocalServiceUtil.findByGroupIdStatus(((Long) arguments[0]).longValue(),
+                ((Integer) arguments[1]).intValue());
+        }
+
+        if (_methodName67.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
             return GuestbookLocalServiceUtil.findByGroupIdName(((Long) arguments[0]).longValue(),
                 (java.lang.String) arguments[1],
                 (com.liferay.portal.kernel.util.OrderByComparator) arguments[2]);

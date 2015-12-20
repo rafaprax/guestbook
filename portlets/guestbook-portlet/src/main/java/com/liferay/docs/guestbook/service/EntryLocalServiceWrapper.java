@@ -350,6 +350,16 @@ public class EntryLocalServiceWrapper implements EntryLocalService,
     }
 
     @Override
+    public com.liferay.docs.guestbook.model.Entry updateStatus(long userId,
+        long entryId, int status,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _entryLocalService.updateStatus(userId, entryId, status,
+            serviceContext);
+    }
+
+    @Override
     public int countByGroupIdGuestbookId(long groupId, long guestbookId)
         throws com.liferay.portal.kernel.exception.SystemException {
         return _entryLocalService.countByGroupIdGuestbookId(groupId, guestbookId);

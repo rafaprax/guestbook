@@ -337,6 +337,14 @@ public class EntryLocalServiceUtil {
         return getService().delete(entry);
     }
 
+    public static com.liferay.docs.guestbook.model.Entry updateStatus(
+        long userId, long entryId, int status,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().updateStatus(userId, entryId, status, serviceContext);
+    }
+
     public static int countByGroupIdGuestbookId(long groupId, long guestbookId)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getService().countByGroupIdGuestbookId(groupId, guestbookId);

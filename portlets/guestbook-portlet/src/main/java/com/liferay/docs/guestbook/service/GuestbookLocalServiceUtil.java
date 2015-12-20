@@ -338,6 +338,15 @@ public class GuestbookLocalServiceUtil {
         return getService().delete(guestbook);
     }
 
+    public static com.liferay.docs.guestbook.model.Guestbook updateStatus(
+        long userId, long guestbookId, int status,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService()
+                   .updateStatus(userId, guestbookId, status, serviceContext);
+    }
+
     public static int countByGroupId(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getService().countByGroupId(groupId);
@@ -353,6 +362,12 @@ public class GuestbookLocalServiceUtil {
         long groupId, int start, int end)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getService().findByGroupId(groupId, start, end);
+    }
+
+    public static java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupIdStatus(
+        long groupId, int status)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getService().findByGroupIdStatus(groupId, status);
     }
 
     public static com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(

@@ -308,6 +308,12 @@ public interface GuestbookLocalService extends BaseLocalService,
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
+    public com.liferay.docs.guestbook.model.Guestbook updateStatus(
+        long userId, long guestbookId, int status,
+        com.liferay.portal.service.ServiceContext serviceContext)
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException;
+
     public int countByGroupId(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -317,6 +323,10 @@ public interface GuestbookLocalService extends BaseLocalService,
 
     public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
         long groupId, int start, int end)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupIdStatus(
+        long groupId, int status)
         throws com.liferay.portal.kernel.exception.SystemException;
 
     public com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(
