@@ -23,6 +23,10 @@
 		</portlet:renderURL>
 
 		<liferay-ui:search-container-column-text property="name" href="${viewGuestbookURL}" />
+		<liferay-ui:search-container-column-text name="status" >
+			<aui:workflow-status showIcon="false" showLabel="false" status="${guestbook.status}" />
+    	</liferay-ui:search-container-column-text>
+		
 		<liferay-ui:search-container-column-jsp path="/html/guestbookadmin/guestbook_actions.jsp" align="right" />
 	</liferay-ui:search-container-row>
 	<liferay-ui:search-iterator />

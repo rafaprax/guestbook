@@ -62,6 +62,12 @@ public class GuestbookServiceImpl extends GuestbookServiceBaseImpl {
 		return guestbookLocalService.findByGroupId(groupId, start, end);
 	}
 
+	public List<Guestbook> findByGroupId(long groupId, int status)
+		throws SystemException {
+
+		return guestbookLocalService.findByGroupIdStatus(groupId, status);
+	}
+
 	public Guestbook findByGroupIdName(
 		long groupId, String name, OrderByComparator orderByComparator)
 		throws SystemException, NoSuchGuestbookException {
