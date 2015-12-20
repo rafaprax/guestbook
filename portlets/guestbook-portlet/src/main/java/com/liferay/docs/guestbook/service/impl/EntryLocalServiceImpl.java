@@ -64,7 +64,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 				serviceContext.getScopeGroupId(), serviceContext.getUserId(),
 				Entry.class.getName(), entry.getEntryId(), false, true, true);
 
-			entry.setStatus(WorkflowConstants.STATUS_DRAFT);
+			entry.setStatus(WorkflowConstants.STATUS_PENDING);
 		}
 		else {
 			resourceLocalService.updateResources(
@@ -158,7 +158,8 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 	public int countByGroupIdGuestbookId(long groupId, long guestbookId)
 		throws SystemException {
 
-		return entryPersistence.countByG_G(groupId, guestbookId);
+		return entryPersistence.countByG_G_S(
+			groupId, guestbookId, WorkflowConstants.STATUS_APPROVED);
 	}
 
 	public List<Entry> findByGroupIdGuestbookId(long groupId, long guestbookId)
@@ -171,7 +172,8 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		long groupId, long guestbookId, int start, int end)
 		throws SystemException {
 
-		return entryPersistence.findByG_G(groupId, guestbookId, start, end);
+		return entryPersistence.findByG_G_S(
+			groupId, guestbookId, WorkflowConstants.STATUS_APPROVED, start, end);
 	}
 
 	public List<Entry> findByGroupIdGuestbookIdName(

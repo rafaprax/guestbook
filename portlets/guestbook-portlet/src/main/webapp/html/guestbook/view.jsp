@@ -20,7 +20,7 @@
 
 <aui:nav cssClass="nav-tabs">
 
-	<c:forEach items="${guestbook:findGuestbookByGroupId(scopeGroupId)}" var="curGuestbook">
+	<c:forEach items="${guestbook:findGuestbookByGroupIdStatus(scopeGroupId,0)}" var="curGuestbook">
 		<c:if test="${permissionChecker:canPerfomActionGuestbook(permissionChecker,guestbook,'VIEW')}">
 			<portlet:renderURL var="viewPageURL">
 				<portlet:param name="mvcPath" value="/html/guestbook/view.jsp" />

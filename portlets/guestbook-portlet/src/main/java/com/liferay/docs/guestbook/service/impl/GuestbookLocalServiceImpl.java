@@ -69,7 +69,7 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 				Guestbook.class.getName(), guestbook.getGuestbookId(), false,
 				true, true);
 
-			guestbook.setStatus(WorkflowConstants.STATUS_DRAFT);
+			guestbook.setStatus(WorkflowConstants.STATUS_PENDING);
 		}
 		else {
 			resourceLocalService.updateResources(
@@ -185,6 +185,12 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 		throws SystemException {
 
 		return guestbookPersistence.findByGroupId(groupId, start, end);
+	}
+
+	public List<Guestbook> findByGroupIdStatus(long groupId, int status)
+		throws SystemException {
+
+		return guestbookPersistence.findByG_S(groupId, status);
 	}
 
 	public Guestbook findByGroupIdName(

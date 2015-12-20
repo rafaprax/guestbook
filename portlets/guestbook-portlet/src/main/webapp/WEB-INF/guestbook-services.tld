@@ -47,6 +47,11 @@
 		<function-signature>com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(long,java.lang.String,com.liferay.portal.kernel.util.OrderByComparator)</function-signature>
 	</function>
 	<function>
+		<name>findGuestbookByGroupIdStatus</name>
+		<function-class>com.liferay.docs.guestbook.service.GuestbookServiceUtil</function-class>
+		<function-signature>java.util.List findByGroupId(long,int)</function-signature>
+	</function>
+	<function>
 		<name>findGuestbookByGroupIdPaginator</name>
 		<function-class>com.liferay.docs.guestbook.service.GuestbookServiceUtil</function-class>
 		<function-signature>java.util.List findByGroupId(long,int,int)</function-signature>
