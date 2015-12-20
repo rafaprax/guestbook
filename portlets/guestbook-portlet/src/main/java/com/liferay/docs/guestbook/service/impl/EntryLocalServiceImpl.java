@@ -14,6 +14,8 @@ import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
@@ -62,6 +64,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 				serviceContext.getScopeGroupId(), serviceContext.getUserId(),
 				Entry.class.getName(), entry.getEntryId(), false, true, true);
 
+			entry.setStatus(WorkflowConstants.STATUS_DRAFT);
 		}
 		else {
 			resourceLocalService.updateResources(
@@ -88,6 +91,14 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 			AssetLinkConstants.TYPE_RELATED);
 
 		entry = super.updateEntry(entry);
+
+		if (addResource) {
+			// Workflow
+			WorkflowHandlerRegistryUtil.startWorkflowInstance(
+				entry.getCompanyId(), entry.getGroupId(), entry.getUserId(),
+				Entry.class.getName(), entry.getPrimaryKey(), entry,
+				serviceContext);
+		}
 
 		// Indexer
 		updateEntryIndexer(entry, false);
@@ -116,6 +127,31 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		// Indexer
 		updateEntryIndexer(entry, true);
 
+		return entry;
+	}
+
+	public Entry updateStatus(
+		long userId, long entryId, int status, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		User user = userLocalService.getUser(userId);
+		Entry entry = getEntry(entryId);
+
+		entry.setStatus(status);
+		entry.setStatusByUserId(userId);
+		entry.setStatusByUserName(user.getFullName());
+		entry.setStatusDate(new Date());
+
+		super.updateEntry(entry);
+
+		if (status == WorkflowConstants.STATUS_APPROVED) {
+			assetEntryLocalService.updateVisible(
+				Entry.class.getName(), entryId, true);
+		}
+		else {
+			assetEntryLocalService.updateVisible(
+				Entry.class.getName(), entryId, false);
+		}
 		return entry;
 	}
 
