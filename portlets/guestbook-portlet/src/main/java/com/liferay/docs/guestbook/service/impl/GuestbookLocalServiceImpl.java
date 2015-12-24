@@ -169,36 +169,39 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 		return guestbook;
 	}
 
-	public int countByGroupId(long groupId)
+	public int filterCountByGroupId(long groupId)
 		throws SystemException {
 
-		return guestbookPersistence.countByGroupId(groupId);
+		return guestbookPersistence.filterCountByGroupId(groupId);
 	}
 
-	public List<Guestbook> findByGroupId(long groupId)
+	public List<Guestbook> filterFindByGroupId(long groupId)
 		throws SystemException {
 
-		return guestbookPersistence.findByGroupId(groupId);
+		return guestbookPersistence.filterFindByGroupId(groupId);
 	}
 
-	public List<Guestbook> findByGroupId(long groupId, int start, int end)
+	public List<Guestbook> filterFindByGroupId(long groupId, int start, int end)
 		throws SystemException {
 
-		return guestbookPersistence.findByGroupId(groupId, start, end);
+		return guestbookPersistence.filterFindByGroupId(groupId, start, end);
 	}
 
-	public List<Guestbook> findByGroupIdStatus(long groupId, int status)
+	public List<Guestbook> filterFindByG_S(long groupId, int status)
 		throws SystemException {
 
-		return guestbookPersistence.findByG_S(groupId, status);
+		return guestbookPersistence.filterFindByG_S(groupId, status);
 	}
 
-	public Guestbook findByGroupIdName(
+	public Guestbook filterFindByGroupIdName(
 		long groupId, String name, OrderByComparator orderByComparator)
 		throws SystemException, NoSuchGuestbookException {
 
-		return guestbookPersistence.fetchByG_N_First(
-			groupId, name, orderByComparator);
+		List<Guestbook> guestbooks =
+			guestbookPersistence.filterFindByG_N(
+				groupId, name, 0, 1, orderByComparator);
+
+		return (guestbooks.isEmpty() ? null : guestbooks.get(0));
 	}
 
 	private void setAttributes(

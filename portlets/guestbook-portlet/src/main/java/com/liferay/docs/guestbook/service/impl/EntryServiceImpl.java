@@ -3,6 +3,9 @@ package com.liferay.docs.guestbook.service.impl;
 
 import com.liferay.docs.guestbook.model.Entry;
 import com.liferay.docs.guestbook.service.base.EntryServiceBaseImpl;
+import com.liferay.docs.guestbook.service.permission.ActionKeys;
+import com.liferay.docs.guestbook.service.permission.EntryPermission;
+import com.liferay.docs.guestbook.service.permission.GuestbookModelPermission;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
@@ -33,11 +36,17 @@ public class EntryServiceImpl extends EntryServiceBaseImpl {
 	public Entry add(Entry entry, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
+		GuestbookModelPermission.check(
+			getPermissionChecker(), serviceContext.getScopeGroupId(),
+			ActionKeys.ADD_ENTRY);
+
 		return entryLocalService.add(entry, serviceContext);
 	}
 
 	public Entry delete(Entry entry)
 		throws PortalException, SystemException {
+
+		EntryPermission.check(getPermissionChecker(), entry, ActionKeys.DELETE);
 
 		return entryLocalService.delete(entry);
 	}

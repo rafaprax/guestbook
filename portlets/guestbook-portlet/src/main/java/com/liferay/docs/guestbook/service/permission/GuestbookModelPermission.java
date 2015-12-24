@@ -20,6 +20,6 @@ public class GuestbookModelPermission {
 		PermissionChecker permissionChecker, long groupId, String actionId) {
 
 		return permissionChecker.hasPermission(
-			groupId, PermissionsActionKeys.GUESTBOOK_MODEL, groupId, actionId);
+			groupId, ActionKeys.GUESTBOOK_MODEL, groupId, actionId);
 	}
 }
