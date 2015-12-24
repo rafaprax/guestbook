@@ -62,7 +62,7 @@ public interface GuestbookService extends BaseService, InvokableService {
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
-    public int countByGroupId(long groupId)
+    public int filterCountByGroupId(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException;
 
     public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
@@ -85,5 +85,7 @@ public interface GuestbookService extends BaseService, InvokableService {
 
     public com.liferay.docs.guestbook.model.Guestbook findByPrimaryKey(
         long guestbookId)
-        throws com.liferay.portal.kernel.exception.SystemException;
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException,
+            com.liferay.portal.security.auth.PrincipalException;
 }

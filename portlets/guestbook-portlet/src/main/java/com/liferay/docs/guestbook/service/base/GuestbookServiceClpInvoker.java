@@ -52,7 +52,7 @@ public class GuestbookServiceClpInvoker {
                 "com.liferay.docs.guestbook.model.Guestbook"
             };
 
-        _methodName42 = "countByGroupId";
+        _methodName42 = "filterCountByGroupId";
 
         _methodParameterTypes42 = new String[] { "long" };
 
@@ -107,7 +107,7 @@ public class GuestbookServiceClpInvoker {
 
         if (_methodName42.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
-            return GuestbookServiceUtil.countByGroupId(((Long) arguments[0]).longValue());
+            return GuestbookServiceUtil.filterCountByGroupId(((Long) arguments[0]).longValue());
         }
 
         if (_methodName43.equals(name) &&

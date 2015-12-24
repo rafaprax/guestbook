@@ -198,23 +198,23 @@ public class GuestbookLocalServiceClp implements GuestbookLocalService {
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName26 = "countByGroupId";
+        _methodName26 = "filterCountByGroupId";
 
         _methodParameterTypes26 = new String[] { "long" };
 
-        _methodName27 = "findByGroupId";
+        _methodName27 = "filterFindByGroupId";
 
         _methodParameterTypes27 = new String[] { "long" };
 
-        _methodName28 = "findByGroupId";
+        _methodName28 = "filterFindByGroupId";
 
         _methodParameterTypes28 = new String[] { "long", "int", "int" };
 
-        _methodName29 = "findByGroupIdStatus";
+        _methodName29 = "filterFindByG_S";
 
         _methodParameterTypes29 = new String[] { "long", "int" };
 
-        _methodName30 = "findByGroupIdName";
+        _methodName30 = "filterFindByGroupIdName";
 
         _methodParameterTypes30 = new String[] {
                 "long", "java.lang.String",
@@ -972,7 +972,7 @@ public class GuestbookLocalServiceClp implements GuestbookLocalService {
     }
 
     @Override
-    public int countByGroupId(long groupId)
+    public int filterCountByGroupId(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
@@ -998,7 +998,7 @@ public class GuestbookLocalServiceClp implements GuestbookLocalService {
     }
 
     @Override
-    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> filterFindByGroupId(
         long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
@@ -1025,7 +1025,7 @@ public class GuestbookLocalServiceClp implements GuestbookLocalService {
     }
 
     @Override
-    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> filterFindByGroupId(
         long groupId, int start, int end)
         throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
@@ -1053,7 +1053,7 @@ public class GuestbookLocalServiceClp implements GuestbookLocalService {
     }
 
     @Override
-    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupIdStatus(
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> filterFindByG_S(
         long groupId, int status)
         throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
@@ -1080,7 +1080,7 @@ public class GuestbookLocalServiceClp implements GuestbookLocalService {
     }
 
     @Override
-    public com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(
+    public com.liferay.docs.guestbook.model.Guestbook filterFindByGroupIdName(
         long groupId, java.lang.String name,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.docs.guestbook.NoSuchGuestbookException,

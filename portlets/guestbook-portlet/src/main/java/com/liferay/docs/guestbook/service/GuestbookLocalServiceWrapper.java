@@ -369,39 +369,39 @@ public class GuestbookLocalServiceWrapper implements GuestbookLocalService,
     }
 
     @Override
-    public int countByGroupId(long groupId)
+    public int filterCountByGroupId(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return _guestbookLocalService.countByGroupId(groupId);
+        return _guestbookLocalService.filterCountByGroupId(groupId);
     }
 
     @Override
-    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> filterFindByGroupId(
         long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return _guestbookLocalService.findByGroupId(groupId);
+        return _guestbookLocalService.filterFindByGroupId(groupId);
     }
 
     @Override
-    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> filterFindByGroupId(
         long groupId, int start, int end)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return _guestbookLocalService.findByGroupId(groupId, start, end);
+        return _guestbookLocalService.filterFindByGroupId(groupId, start, end);
     }
 
     @Override
-    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupIdStatus(
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> filterFindByG_S(
         long groupId, int status)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return _guestbookLocalService.findByGroupIdStatus(groupId, status);
+        return _guestbookLocalService.filterFindByG_S(groupId, status);
     }
 
     @Override
-    public com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(
+    public com.liferay.docs.guestbook.model.Guestbook filterFindByGroupIdName(
         long groupId, java.lang.String name,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.docs.guestbook.NoSuchGuestbookException,
             com.liferay.portal.kernel.exception.SystemException {
-        return _guestbookLocalService.findByGroupIdName(groupId, name,
+        return _guestbookLocalService.filterFindByGroupIdName(groupId, name,
             orderByComparator);
     }
 

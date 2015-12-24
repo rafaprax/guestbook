@@ -81,9 +81,10 @@ public class GuestbookServiceSoap {
         }
     }
 
-    public static int countByGroupId(long groupId) throws RemoteException {
+    public static int filterCountByGroupId(long groupId)
+        throws RemoteException {
         try {
-            int returnValue = GuestbookServiceUtil.countByGroupId(groupId);
+            int returnValue = GuestbookServiceUtil.filterCountByGroupId(groupId);
 
             return returnValue;
         } catch (Exception e) {

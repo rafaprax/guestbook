@@ -314,22 +314,22 @@ public interface GuestbookLocalService extends BaseLocalService,
         throws com.liferay.portal.kernel.exception.PortalException,
             com.liferay.portal.kernel.exception.SystemException;
 
-    public int countByGroupId(long groupId)
+    public int filterCountByGroupId(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException;
 
-    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> filterFindByGroupId(
         long groupId)
         throws com.liferay.portal.kernel.exception.SystemException;
 
-    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> filterFindByGroupId(
         long groupId, int start, int end)
         throws com.liferay.portal.kernel.exception.SystemException;
 
-    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupIdStatus(
+    public java.util.List<com.liferay.docs.guestbook.model.Guestbook> filterFindByG_S(
         long groupId, int status)
         throws com.liferay.portal.kernel.exception.SystemException;
 
-    public com.liferay.docs.guestbook.model.Guestbook findByGroupIdName(
+    public com.liferay.docs.guestbook.model.Guestbook filterFindByGroupIdName(
         long groupId, java.lang.String name,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.docs.guestbook.NoSuchGuestbookException,

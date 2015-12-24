@@ -197,23 +197,23 @@ public class GuestbookLocalServiceClpInvoker {
                 "com.liferay.portal.service.ServiceContext"
             };
 
-        _methodName63 = "countByGroupId";
+        _methodName63 = "filterCountByGroupId";
 
         _methodParameterTypes63 = new String[] { "long" };
 
-        _methodName64 = "findByGroupId";
+        _methodName64 = "filterFindByGroupId";
 
         _methodParameterTypes64 = new String[] { "long" };
 
-        _methodName65 = "findByGroupId";
+        _methodName65 = "filterFindByGroupId";
 
         _methodParameterTypes65 = new String[] { "long", "int", "int" };
 
-        _methodName66 = "findByGroupIdStatus";
+        _methodName66 = "filterFindByG_S";
 
         _methodParameterTypes66 = new String[] { "long", "int" };
 
-        _methodName67 = "findByGroupIdName";
+        _methodName67 = "filterFindByGroupIdName";
 
         _methodParameterTypes67 = new String[] {
                 "long", "java.lang.String",
@@ -367,30 +367,30 @@ public class GuestbookLocalServiceClpInvoker {
 
         if (_methodName63.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
-            return GuestbookLocalServiceUtil.countByGroupId(((Long) arguments[0]).longValue());
+            return GuestbookLocalServiceUtil.filterCountByGroupId(((Long) arguments[0]).longValue());
         }
 
         if (_methodName64.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
-            return GuestbookLocalServiceUtil.findByGroupId(((Long) arguments[0]).longValue());
+            return GuestbookLocalServiceUtil.filterFindByGroupId(((Long) arguments[0]).longValue());
         }
 
         if (_methodName65.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
-            return GuestbookLocalServiceUtil.findByGroupId(((Long) arguments[0]).longValue(),
+            return GuestbookLocalServiceUtil.filterFindByGroupId(((Long) arguments[0]).longValue(),
                 ((Integer) arguments[1]).intValue(),
                 ((Integer) arguments[2]).intValue());
         }
 
         if (_methodName66.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
-            return GuestbookLocalServiceUtil.findByGroupIdStatus(((Long) arguments[0]).longValue(),
+            return GuestbookLocalServiceUtil.filterFindByG_S(((Long) arguments[0]).longValue(),
                 ((Integer) arguments[1]).intValue());
         }
 
         if (_methodName67.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
-            return GuestbookLocalServiceUtil.findByGroupIdName(((Long) arguments[0]).longValue(),
+            return GuestbookLocalServiceUtil.filterFindByGroupIdName(((Long) arguments[0]).longValue(),
                 (java.lang.String) arguments[1],
                 (com.liferay.portal.kernel.util.OrderByComparator) arguments[2]);
         }

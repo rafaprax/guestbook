@@ -62,9 +62,9 @@ public class GuestbookServiceWrapper implements GuestbookService,
     }
 
     @Override
-    public int countByGroupId(long groupId)
+    public int filterCountByGroupId(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return _guestbookService.countByGroupId(groupId);
+        return _guestbookService.filterCountByGroupId(groupId);
     }
 
     @Override
@@ -101,7 +101,9 @@ public class GuestbookServiceWrapper implements GuestbookService,
     @Override
     public com.liferay.docs.guestbook.model.Guestbook findByPrimaryKey(
         long guestbookId)
-        throws com.liferay.portal.kernel.exception.SystemException {
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException,
+            com.liferay.portal.security.auth.PrincipalException {
         return _guestbookService.findByPrimaryKey(guestbookId);
     }
 

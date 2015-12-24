@@ -53,7 +53,7 @@ public class GuestbookServiceClp implements GuestbookService {
                 "com.liferay.docs.guestbook.model.Guestbook"
             };
 
-        _methodName5 = "countByGroupId";
+        _methodName5 = "filterCountByGroupId";
 
         _methodParameterTypes5 = new String[] { "long" };
 
@@ -199,7 +199,7 @@ public class GuestbookServiceClp implements GuestbookService {
     }
 
     @Override
-    public int countByGroupId(long groupId)
+    public int filterCountByGroupId(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
         Object returnObj = null;
 
@@ -348,7 +348,9 @@ public class GuestbookServiceClp implements GuestbookService {
     @Override
     public com.liferay.docs.guestbook.model.Guestbook findByPrimaryKey(
         long guestbookId)
-        throws com.liferay.portal.kernel.exception.SystemException {
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException,
+            com.liferay.portal.security.auth.PrincipalException {
         Object returnObj = null;
 
         try {
@@ -357,8 +359,16 @@ public class GuestbookServiceClp implements GuestbookService {
         } catch (Throwable t) {
             t = ClpSerializer.translateThrowable(t);
 
+            if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+                throw (com.liferay.portal.kernel.exception.PortalException) t;
+            }
+
             if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
                 throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof com.liferay.portal.security.auth.PrincipalException) {
+                throw (com.liferay.portal.security.auth.PrincipalException) t;
             }
 
             if (t instanceof RuntimeException) {

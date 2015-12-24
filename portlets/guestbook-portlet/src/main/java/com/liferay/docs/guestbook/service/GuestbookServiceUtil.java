@@ -66,9 +66,9 @@ public class GuestbookServiceUtil {
         return getService().delete(guestbook);
     }
 
-    public static int countByGroupId(long groupId)
+    public static int filterCountByGroupId(long groupId)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return getService().countByGroupId(groupId);
+        return getService().filterCountByGroupId(groupId);
     }
 
     public static java.util.List<com.liferay.docs.guestbook.model.Guestbook> findByGroupId(
@@ -99,7 +99,9 @@ public class GuestbookServiceUtil {
 
     public static com.liferay.docs.guestbook.model.Guestbook findByPrimaryKey(
         long guestbookId)
-        throws com.liferay.portal.kernel.exception.SystemException {
+        throws com.liferay.portal.kernel.exception.PortalException,
+            com.liferay.portal.kernel.exception.SystemException,
+            com.liferay.portal.security.auth.PrincipalException {
         return getService().findByPrimaryKey(guestbookId);
     }
 
